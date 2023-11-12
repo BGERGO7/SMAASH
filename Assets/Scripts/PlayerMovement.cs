@@ -9,11 +9,21 @@ public class PlayerMovement : MonoBehaviour
     public Transform groundCheck;
     public LayerMask groundLayer;
     public Animator animator;
+    public HealthBar healthBar;
 
     private float horizontal;
     private float speed = 8f;
     private float jumpingPower = 16f;
     private bool isFacingRight = true;
+
+    public int maxHealth = 100;
+	public int currentHealth;
+
+    void Start()
+    {
+		currentHealth = maxHealth;
+		healthBar.SetMaxHealth(maxHealth);
+    }
 
     void Update()
     {
@@ -33,6 +43,25 @@ public class PlayerMovement : MonoBehaviour
         {
             animator.SetBool("isJumping", false);
         }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+		{
+			TakeDamage(10);
+		}
+        else if (Input.GetKeyDown(KeyCode.H))
+		{
+			AddHealth(10);
+		}
+
+        if(maxHealth <= 0)
+        {
+            Die();
+        }
+    }
+
+    void Die()
+    {
+        animator.SetTrigger("Dead");
     }
 
     private void FixedUpdate()
@@ -70,5 +99,25 @@ public class PlayerMovement : MonoBehaviour
     public void Move(InputAction.CallbackContext context)
     {
         horizontal = context.ReadValue<Vector2>().x;
+    }
+
+    void TakeDamage(int damage)
+	{
+        if(currentHealth <= maxHealth && currentHealth > 0)
+        {
+            currentHealth -= damage;
+
+		    healthBar.SetHealth(currentHealth);
+        }
+	}
+
+    void AddHealth(int amount)
+    {
+        if(currentHealth < maxHealth && currentHealth >= 0)
+        {
+            currentHealth += amount;
+
+            healthBar.SetHealth(currentHealth);
+        }
     }
 }
