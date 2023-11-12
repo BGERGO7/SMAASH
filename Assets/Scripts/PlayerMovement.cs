@@ -1,3 +1,5 @@
+using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -6,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
     public Rigidbody2D rb;
     public Transform groundCheck;
     public LayerMask groundLayer;
+    public Animator animator;
 
     private float horizontal;
     private float speed = 8f;
@@ -22,11 +25,20 @@ public class PlayerMovement : MonoBehaviour
         {
             Flip();
         }
+
+        if (!IsGrounded())
+        {
+            animator.SetBool("isJumping", true);
+        } else
+        {
+            animator.SetBool("isJumping", false);
+        }
     }
 
     private void FixedUpdate()
     {
         rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
+        animator.SetFloat("speed", Math.Abs(horizontal));
     }
 
     public void Jump(InputAction.CallbackContext context)
