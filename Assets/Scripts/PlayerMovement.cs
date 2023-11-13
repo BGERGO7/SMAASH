@@ -62,6 +62,8 @@ public class PlayerMovement : MonoBehaviour
         {
             animator.SetBool("isDead", true);
             isDead = true;
+            horizontal = 0;
+            rb.velocity = new Vector2(horizontal, rb.velocity.y);
         }
     }
 
@@ -82,6 +84,17 @@ public class PlayerMovement : MonoBehaviour
             rb.velocity = new Vector2(horizontal, rb.velocity.y);
 
             animator.SetFloat("speed", Math.Abs(horizontal));
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collider)
+    {
+        if(collider.gameObject.name == "dmg")
+        {
+            TakeDamage(10);
+        }else if(collider.gameObject.name == "heal")
+        {
+            AddHealth(10);
         }
     }
 
