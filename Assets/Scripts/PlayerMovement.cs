@@ -67,20 +67,22 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(joystick.Horizontal >= .2f)
+        if(!isDead)
         {
-            horizontal = speed;
-        }else if(joystick.Horizontal <= -.2f)
-        {
-            horizontal = -speed;
-        }else
-        {
-            horizontal = 0f;
-        }
-        rb.velocity = new Vector2(horizontal, rb.velocity.y);
+            if(joystick.Horizontal >= .2f)
+            {
+                horizontal = speed;
+            }else if(joystick.Horizontal <= -.2f)
+            {
+                horizontal = -speed;
+            }else
+            {
+                horizontal = 0f;
+            }
+            rb.velocity = new Vector2(horizontal, rb.velocity.y);
 
-        
-        animator.SetFloat("speed", Math.Abs(horizontal));
+            animator.SetFloat("speed", Math.Abs(horizontal));
+        }
     }
 
     public void Jump(InputAction.CallbackContext context)
