@@ -89,13 +89,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        if(collider.gameObject.name == "dmg")
-        {
-            TakeDamage(10);
-        }else if(collider.gameObject.name == "heal")
-        {
-            AddHealth(10);
-        }
+        TakeDamage(10);
     }
 
     public void Jump(InputAction.CallbackContext context)
