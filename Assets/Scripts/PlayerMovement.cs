@@ -10,6 +10,8 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask groundLayer;
     public Animator animator;
     public HealthBar healthBar;
+    
+    public Joystick joystick;
 
     private float horizontal;
     private float speed = 8f;
@@ -65,7 +67,19 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
+        if(joystick.Horizontal >= .2f)
+        {
+            horizontal = speed;
+        }else if(joystick.Horizontal <= -.2f)
+        {
+            horizontal = -speed;
+        }else
+        {
+            horizontal = 0f;
+        }
+        rb.velocity = new Vector2(horizontal, rb.velocity.y);
+
+        
         animator.SetFloat("speed", Math.Abs(horizontal));
     }
 
