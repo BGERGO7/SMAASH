@@ -15,18 +15,21 @@ public class PlayerMovement : MonoBehaviour
 
     private float horizontal;
     private float speed = 8f;
-    private float jumpingPower = 16f;
+    public float jumpingPower = 10f;
     private bool isFacingRight = true;
     bool isDead = false;
 
     public int maxHealth = 100;
 	public int currentHealth;
+    private int extraJumps;
+    public int extraJumpValue = 2;
 
 
     void Start()
     {
 		currentHealth = maxHealth;
 		healthBar.SetMaxHealth(maxHealth);
+        extraJumps = extraJumpValue;
     }
     
     void Update()
@@ -48,6 +51,8 @@ public class PlayerMovement : MonoBehaviour
             animator.SetBool("isJumping", false);
         }
 
+        /*
+
         if (Input.GetKeyDown(KeyCode.H))
 		{
 			TakeDamage(10);
@@ -57,6 +62,7 @@ public class PlayerMovement : MonoBehaviour
 		{
 			AddHealth(10);
 		}
+        */
 
         if(currentHealth <= 0)
         {
@@ -65,6 +71,8 @@ public class PlayerMovement : MonoBehaviour
             horizontal = 0;
             rb.velocity = new Vector2(horizontal, rb.velocity.y);
         }
+
+        
     }
 
     private void FixedUpdate()
@@ -94,6 +102,21 @@ public class PlayerMovement : MonoBehaviour
 
     public void Jump(InputAction.CallbackContext context)
     {
+        if(!isDead && IsGrounded())
+        {
+            extraJumps = extraJumpValue;
+        }
+
+        if(!isDead && context.performed && extraJumps > 0)
+        {
+            rb.velocity = Vector2.up * jumpingPower;
+            extraJumps--;
+        }else if(!isDead && context.performed && extraJumps == 0 && IsGrounded())
+        {
+            rb.velocity = Vector2.up * jumpingPower;
+        }
+        /*
+        
         if (!isDead && context.performed && IsGrounded())
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
@@ -101,8 +124,17 @@ public class PlayerMovement : MonoBehaviour
 
         if (!isDead && context.canceled && rb.velocity.y > 0f)
         {
-            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
+            if(extraJumps == 0)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
+            }else if(extraJumps > 0)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
+                extraJumps--;
+            }
         }
+
+        */
     }
 
     private bool IsGrounded()
