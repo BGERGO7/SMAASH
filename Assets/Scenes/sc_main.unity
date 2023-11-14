@@ -1894,11 +1894,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1248614813}
+  - component: {fileID: 1248614814}
   - component: {fileID: 1248614812}
   - component: {fileID: 1248614811}
   - component: {fileID: 1248614810}
   - component: {fileID: 1248614808}
-  - component: {fileID: 1248614814}
   - component: {fileID: 1248614815}
   - component: {fileID: 1248614816}
   m_Layer: 3
@@ -2104,8 +2104,10 @@ MonoBehaviour:
   animator: {fileID: 1248614816}
   healthBar: {fileID: 1932864243}
   joystick: {fileID: 649988802}
+  jumpingPower: 10
   maxHealth: 100
   currentHealth: 0
+  extraJumpValue: 2
 --- !u!114 &1248614815
 MonoBehaviour:
   m_ObjectHideFlags: 0
