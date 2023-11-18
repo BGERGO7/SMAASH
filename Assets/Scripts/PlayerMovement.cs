@@ -102,6 +102,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void Jump(InputAction.CallbackContext context)
     {
+
         if(!isDead && IsGrounded())
         {
             extraJumps = extraJumpValue;
@@ -135,8 +136,17 @@ public class PlayerMovement : MonoBehaviour
         }
 
         */
+
     }
 
+    public void Fire(InputAction.CallbackContext context)
+    {
+        if(!isDead && context.performed)
+        {
+            animator.SetBool("isAttacking", true);
+            
+        }
+    }
     private bool IsGrounded()
     {
         return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
