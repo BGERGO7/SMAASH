@@ -22,19 +22,21 @@ public class PlayerMovement : MonoBehaviour
 
     public int maxHealth = 100;
 	public int currentHealth;
-    private int extraJumps;
-    public int extraJumpValue = 2;
+    private int jumpNumber;
+    public int jumpNumberValue = 2;
 
 
     void Start()
     {
 		currentHealth = maxHealth;
 		healthBar.SetMaxHealth(maxHealth);
-        extraJumps = extraJumpValue;
+        jumpNumber = jumpNumberValue;
     }
     
     void Update()
     {
+        rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
+
         if (!isDead && !isFacingRight && horizontal > 0f)
         {
             Flip();
@@ -57,7 +59,7 @@ public class PlayerMovement : MonoBehaviour
             animator.SetBool("isDead", true);
             isDead = true;
             horizontal = 0;
-            rb.velocity = new Vector2(horizontal, rb.velocity.y);
+            rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
         }
         
     }
@@ -86,14 +88,14 @@ public class PlayerMovement : MonoBehaviour
     {
         if(!isDead && IsGrounded())
         {
-            extraJumps = extraJumpValue;
+            jumpNumber = jumpNumberValue;
         }
 
-        if(!isDead && context.performed && extraJumps > 0)
+        if(!isDead && context.performed && jumpNumber > 0)
         {
             rb.velocity = Vector2.up * jumpingPower;
-            extraJumps--;
-        }else if(!isDead && context.performed && extraJumps == 0 && IsGrounded())
+            jumpNumber--;
+        }else if(!isDead && context.performed && jumpNumber == 0 && IsGrounded())
         {
             rb.velocity = Vector2.up * jumpingPower;
         }
