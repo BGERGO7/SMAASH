@@ -1,11 +1,13 @@
 using System;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
     public Rigidbody2D rb;
+
     public Transform groundCheck;
     public LayerMask groundLayer;
     public Animator animator;
@@ -139,14 +141,16 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
-    public void Fire(InputAction.CallbackContext context)
+    public void Attack(InputAction.CallbackContext context)
     {
-        if(!isDead && context.performed)
+        Debug.Log("Asd");
+        if(context.performed)
         {
+            Debug.Log("Asd");
             animator.SetBool("isAttacking", true);
-            
         }
     }
+
     private bool IsGrounded()
     {
         return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
