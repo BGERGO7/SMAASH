@@ -7,7 +7,6 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
     public Rigidbody2D rb;
-
     public Transform groundCheck;
     public LayerMask groundLayer;
     public Animator animator;
@@ -53,19 +52,6 @@ public class PlayerMovement : MonoBehaviour
             animator.SetBool("isJumping", false);
         }
 
-        /*
-
-        if (Input.GetKeyDown(KeyCode.H))
-		{
-			TakeDamage(10);
-		}
-
-        if (Input.GetKeyDown(KeyCode.Space))
-		{
-			AddHealth(10);
-		}
-        */
-
         if(currentHealth <= 0)
         {
             animator.SetBool("isDead", true);
@@ -73,7 +59,6 @@ public class PlayerMovement : MonoBehaviour
             horizontal = 0;
             rb.velocity = new Vector2(horizontal, rb.velocity.y);
         }
-
         
     }
 
@@ -97,14 +82,8 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collider)
-    {
-        TakeDamage(10);
-    }
-
     public void Jump(InputAction.CallbackContext context)
     {
-
         if(!isDead && IsGrounded())
         {
             extraJumps = extraJumpValue;
@@ -143,34 +122,6 @@ public class PlayerMovement : MonoBehaviour
             Vector3 localScale = transform.localScale;
             localScale.x *= -1f;
             transform.localScale = localScale;
-        }
-    }
-
-    public void Move(InputAction.CallbackContext context)
-    {
-        if (!isDead)
-        {
-            horizontal = context.ReadValue<Vector2>().x;
-        }
-    }
-
-    void TakeDamage(int damage)
-	{
-        if(currentHealth <= maxHealth && currentHealth > 0)
-        {
-            currentHealth -= damage;
-
-		    healthBar.SetHealth(currentHealth);
-        }
-	}
-
-    void AddHealth(int amount)
-    {
-        if(currentHealth < maxHealth && currentHealth >= 0)
-        {
-            currentHealth += amount;
-
-            healthBar.SetHealth(currentHealth);
         }
     }
 }
