@@ -221,19 +221,8 @@
                 },
                 {
                     "name": "",
-                    "id": "0940c58a-89b7-44d4-8459-a0f621293905",
-                    "path": "<Gamepad>/buttonSouth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "Jump",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "cb5eae28-dfeb-4ba7-9b0b-20f024c865f5",
-                    "path": "<Touchscreen>/primaryTouch/tap",
+                    "id": "b0272f2f-aa4e-44d1-9965-870fa4bd056e",
+                    "path": "<Gamepad>/buttonEast",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -244,10 +233,10 @@
                 {
                     "name": "",
                     "id": "e3ac328a-9e83-44ac-b54c-be760f83ba75",
-                    "path": "<Gamepad>/buttonEast",
+                    "path": "<Gamepad>/buttonWest",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Gamepad",
                     "action": "Attack",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -255,8 +244,8 @@
                 {
                     "name": "",
                     "id": "68b2c2cd-f2c7-4179-a969-a42250be2a78",
-                    "path": "<Keyboard>/a",
-                    "interactions": "",
+                    "path": "<Keyboard>/x",
+                    "interactions": "Tap",
                     "processors": "",
                     "groups": "",
                     "action": "Attack",
