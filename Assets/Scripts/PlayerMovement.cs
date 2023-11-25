@@ -118,16 +118,38 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.velocity = Vector2.up * jumpingPower;
         }
+        /*
+        
+        if (!isDead && context.performed && IsGrounded())
+        {
+            rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
+        }
+
+        if (!isDead && context.canceled && rb.velocity.y > 0f)
+        {
+            if(extraJumps == 0)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
+            }else if(extraJumps > 0)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
+                extraJumps--;
+            }
+        }
+
+        */
 
     }
+
     public void Attack(InputAction.CallbackContext context)
     {
+        Debug.Log("Asd");
         if(context.performed)
         {
-            animator.SetTrigger("isAttacking");
+            Debug.Log("Asd");
+            animator.SetBool("isAttacking", true);
         }
     }
-    
 
     private bool IsGrounded()
     {
