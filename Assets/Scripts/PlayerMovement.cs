@@ -105,15 +105,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if(context.performed)
         {
-           if(attackNum == 1)
-           {
-                animator.SetTrigger("Attack1");
-                attackNum = 2;
-           } else if(attackNum == 2)
-           {
-                animator.SetTrigger("Attack2");
-                attackNum = 1;
-           }
+           animator.SetTrigger("isAttacking");
         }
     }
     
