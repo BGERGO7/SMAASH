@@ -8,6 +8,8 @@ public class PlayerMovement : MonoBehaviour
 {
     public Rigidbody2D rb;
 
+    //test
+
     public Transform groundCheck;
     public LayerMask groundLayer;
     public Animator animator;
