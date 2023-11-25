@@ -26,6 +26,8 @@ public class PlayerMovement : MonoBehaviour
     private int extraJumps;
     public int extraJumpValue = 2;
 
+    public int attackNum = 1;
+
 
     void Start()
     {
@@ -52,19 +54,6 @@ public class PlayerMovement : MonoBehaviour
         {
             animator.SetBool("isJumping", false);
         }
-
-        /*
-
-        if (Input.GetKeyDown(KeyCode.H))
-		{
-			TakeDamage(10);
-		}
-
-        if (Input.GetKeyDown(KeyCode.Space))
-		{
-			AddHealth(10);
-		}
-        */
 
         if(currentHealth <= 0)
         {
@@ -118,35 +107,22 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.velocity = Vector2.up * jumpingPower;
         }
-        /*
-        
-        if (!isDead && context.performed && IsGrounded())
-        {
-            rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
-        }
-
-        if (!isDead && context.canceled && rb.velocity.y > 0f)
-        {
-            if(extraJumps == 0)
-            {
-                rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
-            }else if(extraJumps > 0)
-            {
-                rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
-                extraJumps--;
-            }
-        }
-
-        */
 
     }
 
     public void Attack(InputAction.CallbackContext context)
     {
-        Debug.Log("Asd");
-        if(context.performed)
+        if(!isDead && context.performed)
         {
-           animator.SetTrigger("isAttacking");
+            if(attackNum == 1)
+            {
+                animator.SetTrigger("Attack1");
+                attackNum = 2;
+            }else if(attackNum == 2)
+            {
+                animator.SetTrigger("Attack2");
+                attackNum = 1;
+            }
         }
     }
 
