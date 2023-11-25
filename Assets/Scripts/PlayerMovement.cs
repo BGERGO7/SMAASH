@@ -12,7 +12,7 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask groundLayer;
     public Animator animator;
     public HealthBar healthBar;
-    
+    public int attackNum = 1;
     public Joystick joystick;
 
     private float horizontal;
@@ -146,8 +146,20 @@ public class PlayerMovement : MonoBehaviour
         Debug.Log("Asd");
         if(context.performed)
         {
+<<<<<<< HEAD
             Debug.Log("Asd");
             animator.SetBool("isAttacking", true);
+=======
+           if(attackNum == 1)
+           {
+                animator.SetTrigger("Attack1");
+                attackNum = 2;
+           } else if(attackNum == 2)
+           {
+                animator.SetTrigger("Attack2");
+                attackNum = 1;
+           }
+>>>>>>> test
         }
     }
 
