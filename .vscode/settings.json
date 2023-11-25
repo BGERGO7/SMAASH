@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "SMAASH-prod.sln"
+    "dotnet.defaultSolution": "SMAASH.sln"
 }
