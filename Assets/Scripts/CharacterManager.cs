@@ -13,6 +13,7 @@ public class CharacterManager : MonoBehaviour
     public TMP_Text nameText;
     public SpriteRenderer artworkSprite;
     private int selectedOption = 0;
+
     // Start is called before the first frame update
     void Start()
     {

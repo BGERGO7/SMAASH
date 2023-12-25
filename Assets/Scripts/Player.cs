@@ -8,6 +8,8 @@ public class Player : MonoBehaviour
     public Character_Database characterDatabase;
     public SpriteRenderer artworkSprite;
     private int selectedOption = 0;
+
+      public GameObject[] playerPrefabs;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,6 +32,7 @@ public class Player : MonoBehaviour
     private void Load()
     {
         selectedOption = PlayerPrefs.GetInt("selectedOption");
+        Instantiate(playerPrefabs[selectedOption]);
     }
 
 }

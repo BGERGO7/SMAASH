@@ -7,16 +7,9 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
     public Rigidbody2D rb;
-
-    //testtestest
-
     public Transform groundCheck;
     public LayerMask groundLayer;
     public Animator animator;
-    public HealthBar healthBar;
-    
-    public Joystick joystick;
-
     private float horizontal;
     private float speed = 8f;
     public float jumpingPower = 10f;
@@ -30,12 +23,18 @@ public class PlayerMovement : MonoBehaviour
 
     public int attackNum = 1;
 
+    public HealthBar healthBar;
+    
+    public Joystick joystick;
+
 
     void Start()
     {
 		currentHealth = maxHealth;
 		healthBar.SetMaxHealth(maxHealth);
         extraJumps = extraJumpValue;
+        joystick = GameObject.Find("Floating Joystick").GetComponent<Joystick>();
+
     }
     
     void Update()
@@ -65,8 +64,28 @@ public class PlayerMovement : MonoBehaviour
             rb.velocity = new Vector2(horizontal, rb.velocity.y);
         }
 
+        if(!isDead)
+        {
+            if(joystick.Horizontal >= .2f)
+            {
+                horizontal = speed;
+            }else if(joystick.Horizontal <= -.2f)
+            {
+                horizontal = -speed;
+            }else
+            {
+                horizontal = 0f;
+            }
+            rb.velocity = new Vector2(horizontal, rb.velocity.y);
+
+            animator.SetFloat("speed", Math.Abs(horizontal));
+        }
+
         
     }
+    
+
+/*
     private void FixedUpdate()
     {
         if(!isDead)
@@ -86,6 +105,7 @@ public class PlayerMovement : MonoBehaviour
             animator.SetFloat("speed", Math.Abs(horizontal));
         }
     }
+*/
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
