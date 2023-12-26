@@ -14,4 +14,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/sc_champ_select.unity
     guid: c4e51e3330f6b4a469124a1e272771d4
+  - enabled: 1
+    path: Assets/Scenes/sc_loading.unity
+    guid: 97e956d4ed53f45ac902dfe90a58ec4a
+  - enabled: 1
+    path: Assets/Scenes/sc_lobby.unity
+    guid: ba4a8f33c65dc4aeb8b7929bfb9bcd66
   m_configObjects: {}

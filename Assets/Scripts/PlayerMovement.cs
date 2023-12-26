@@ -3,9 +3,14 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
+using Photon.Pun;
+using System.Threading;
 
 public class PlayerMovement : MonoBehaviour
 {
+
+    PhotonView view;
+
     public Rigidbody2D rb;
     public Transform groundCheck;
     public LayerMask groundLayer;
@@ -34,54 +39,55 @@ public class PlayerMovement : MonoBehaviour
 		healthBar.SetMaxHealth(maxHealth);
         extraJumps = extraJumpValue;
         joystick = GameObject.Find("Floating Joystick").GetComponent<Joystick>();
-
+        view = GetComponent<PhotonView>();
     }
     
     void Update()
     {
-        if (!isDead && !isFacingRight && horizontal > 0f)
+        if(view.IsMine)
         {
-            Flip();
-        }
-        else if (!isDead && isFacingRight && horizontal < 0f)
-        {
-            Flip();
-        }
-
-        if (!isDead && !IsGrounded())
-        {
-            animator.SetBool("isJumping", true);
-        } else
-        {
-            animator.SetBool("isJumping", false);
-        }
-
-        if(currentHealth <= 0)
-        {
-            animator.SetBool("isDead", true);
-            isDead = true;
-            horizontal = 0;
-            rb.velocity = new Vector2(horizontal, rb.velocity.y);
-        }
-
-        if(!isDead)
-        {
-            if(joystick.Horizontal >= .2f)
+            if (!isDead && !isFacingRight && horizontal > 0f)
             {
-                horizontal = speed;
-            }else if(joystick.Horizontal <= -.2f)
-            {
-                horizontal = -speed;
-            }else
-            {
-                horizontal = 0f;
+                Flip();
             }
-            rb.velocity = new Vector2(horizontal, rb.velocity.y);
+            else if (!isDead && isFacingRight && horizontal < 0f)
+            {
+                Flip();
+            }
 
-            animator.SetFloat("speed", Math.Abs(horizontal));
-        }
+            if (!isDead && !IsGrounded())
+            {
+                animator.SetBool("isJumping", true);
+            } else
+            {
+                animator.SetBool("isJumping", false);
+            }
 
-        
+            if(currentHealth <= 0)
+            {
+                animator.SetBool("isDead", true);
+                isDead = true;
+                horizontal = 0;
+                rb.velocity = new Vector2(horizontal, rb.velocity.y);
+            }
+
+            if(!isDead)
+            {
+                if(joystick.Horizontal >= .2f)
+                {
+                    horizontal = speed;
+                }else if(joystick.Horizontal <= -.2f)
+                {
+                    horizontal = -speed;
+                }else
+                {
+                    horizontal = 0f;
+                }
+                rb.velocity = new Vector2(horizontal, rb.velocity.y);
+
+                animator.SetFloat("speed", Math.Abs(horizontal));
+            }
+        }        
     }
     
 
@@ -114,7 +120,24 @@ public class PlayerMovement : MonoBehaviour
 
     public void Jump(InputAction.CallbackContext context)
     {
+        if(view.IsMine)
+        {
+            if(!isDead && IsGrounded())
+            {
+                extraJumps = extraJumpValue;
+            }
 
+            if(!isDead && context.performed && extraJumps > 0)
+            {
+                rb.velocity = Vector2.up * jumpingPower;
+                extraJumps--;
+            }else if(!isDead && context.performed && extraJumps == 0 && IsGrounded())
+            {
+                rb.velocity = Vector2.up * jumpingPower;
+            }
+        }
+
+        /*
         if(!isDead && IsGrounded())
         {
             extraJumps = extraJumpValue;
@@ -128,12 +151,13 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.velocity = Vector2.up * jumpingPower;
         }
+        */
 
     }
 
     public void Attack(InputAction.CallbackContext context)
     {
-        if(!isDead && context.performed)
+        if(!isDead && context.performed && view.IsMine)
         {
             if(attackNum == 1)
             {
@@ -154,7 +178,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Flip()
     {
-        if (!isDead)
+        if (!isDead && view.IsMine)
         {
             isFacingRight = !isFacingRight;
             Vector3 localScale = transform.localScale;
@@ -165,7 +189,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void Move(InputAction.CallbackContext context)
     {
-        if (!isDead)
+        if (!isDead && view.IsMine)
         {
             horizontal = context.ReadValue<Vector2>().x;
         }

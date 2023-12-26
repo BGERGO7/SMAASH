@@ -73,4 +73,5 @@ public class CharacterManager : MonoBehaviour
     {
         SceneManager.LoadScene(sceneID);
     }
+
 }

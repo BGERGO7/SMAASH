@@ -236,6 +236,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7504ab867ffe74dabbaf96c39eb2daa6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minX: -8
+  maxX: 0.5
+  minY: -0.5
+  maxY: -0.6
   characterDatabase: {fileID: 11400000, guid: be72cdc05ea224ba99e86a725657c0c0, type: 2}
   artworkSprite: {fileID: 0}
   playerPrefabs:
