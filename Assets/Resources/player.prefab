@@ -50,7 +50,7 @@ GameObject:
   - component: {fileID: -1465372070467415259}
   - component: {fileID: -6514924453519786470}
   - component: {fileID: 198425999526553580}
-  - component: {fileID: -3017792995883077562}
+  - component: {fileID: 1722907815526246828}
   m_Layer: 3
   m_Name: player
   m_TagString: Untagged
@@ -423,7 +423,7 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: -6514924453519786470}
   - {fileID: 198425999526553580}
-  - {fileID: -3017792995883077562}
+  - {fileID: 1722907815526246828}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -451,7 +451,7 @@ MonoBehaviour:
     ExtrapolateIncludingRoundTripTime: 1
     ExtrapolateNumberOfStoredPositions: 1
   m_RotationModel:
-    SynchronizeEnabled: 1
+    SynchronizeEnabled: 0
     InterpolateOption: 1
     InterpolateRotateTowardsSpeed: 180
     InterpolateLerpSpeed: 5
@@ -476,7 +476,7 @@ MonoBehaviour:
   m_SynchronizeAngularVelocity: 0
   m_TeleportEnabled: 0
   m_TeleportIfDistanceGreaterThan: 3
---- !u!114 &-3017792995883077562
+--- !u!114 &1722907815526246828
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -507,7 +507,7 @@ MonoBehaviour:
     SynchronizeType: 1
     Name: Attack2
   m_SynchronizeLayers:
-  - SynchronizeType: 1
+  - SynchronizeType: 0
     LayerIndex: 0
 --- !u!1 &5818609464253182864
 GameObject:

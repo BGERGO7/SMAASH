@@ -19,7 +19,7 @@ GameObject:
   - component: {fileID: 2693486015512895253}
   - component: {fileID: -2150176920962303105}
   - component: {fileID: -2769776375907694527}
-  - component: {fileID: 1441386290694099945}
+  - component: {fileID: -7457931286131025161}
   m_Layer: 3
   m_Name: slime
   m_TagString: Untagged
@@ -392,7 +392,7 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: -2150176920962303105}
   - {fileID: -2769776375907694527}
-  - {fileID: 1441386290694099945}
+  - {fileID: -7457931286131025161}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -420,7 +420,7 @@ MonoBehaviour:
     ExtrapolateIncludingRoundTripTime: 1
     ExtrapolateNumberOfStoredPositions: 1
   m_RotationModel:
-    SynchronizeEnabled: 1
+    SynchronizeEnabled: 0
     InterpolateOption: 1
     InterpolateRotateTowardsSpeed: 180
     InterpolateLerpSpeed: 5
@@ -445,7 +445,7 @@ MonoBehaviour:
   m_SynchronizeAngularVelocity: 0
   m_TeleportEnabled: 0
   m_TeleportIfDistanceGreaterThan: 3
---- !u!114 &1441386290694099945
+--- !u!114 &-7457931286131025161
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -464,7 +464,7 @@ MonoBehaviour:
     SynchronizeType: 1
     Name: isJumping
   m_SynchronizeLayers:
-  - SynchronizeType: 1
+  - SynchronizeType: 0
     LayerIndex: 0
 --- !u!1 &4114129097919910443
 GameObject:
