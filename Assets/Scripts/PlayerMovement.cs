@@ -5,6 +5,8 @@ using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using Photon.Pun;
 using System.Threading;
+using Photon.Pun.UtilityScripts;
+using System.Numerics;
 
 public class PlayerMovement : MonoBehaviour, IPunObservable
 {
@@ -19,6 +21,9 @@ public class PlayerMovement : MonoBehaviour, IPunObservable
     private float speed = 8f;
     public float jumpingPower = 10f;
     private bool isFacingRight = true;
+
+    private UnityEngine.Vector3 smoothMove;
+
     bool isDead = false;
 
     public int maxHealth = 100;
@@ -74,7 +79,7 @@ public class PlayerMovement : MonoBehaviour, IPunObservable
                 animator.SetBool("isDead", true);
                 isDead = true;
                 horizontal = 0;
-                rb.velocity = new Vector2(horizontal, rb.velocity.y);
+                rb.velocity = new UnityEngine.Vector2(horizontal, rb.velocity.y);
             }
 
             if(!isDead)
@@ -89,12 +94,21 @@ public class PlayerMovement : MonoBehaviour, IPunObservable
                 {
                     horizontal = 0f;
                 }
-                rb.velocity = new Vector2(horizontal, rb.velocity.y);
+                rb.velocity = new UnityEngine.Vector2(horizontal, rb.velocity.y);
 
                 animator.SetFloat("speed", Math.Abs(horizontal));
             }
-        }        
+        }else
+        {
+            SmoothSyncMovement();
+        }     
     }
+
+    private void SmoothSyncMovement()
+    {
+        transform.position = UnityEngine.Vector3.Lerp(transform.position, smoothMove, Time.deltaTime * 10);
+    }
+
     [PunRPC]
     void OnDirectionChange_LEFT()
     {
@@ -145,11 +159,11 @@ public class PlayerMovement : MonoBehaviour, IPunObservable
 
             if(!isDead && context.performed && extraJumps > 0)
             {
-                rb.velocity = Vector2.up * jumpingPower;
+                rb.velocity = UnityEngine.Vector2.up * jumpingPower;
                 extraJumps--;
             }else if(!isDead && context.performed && extraJumps == 0 && IsGrounded())
             {
-                rb.velocity = Vector2.up * jumpingPower;
+                rb.velocity = UnityEngine.Vector2.up * jumpingPower;
             }
         }
 
@@ -197,7 +211,7 @@ public class PlayerMovement : MonoBehaviour, IPunObservable
         if (!isDead && view.IsMine)
         {
             isFacingRight = !isFacingRight;
-            Vector3 localScale = transform.localScale;
+            UnityEngine.Vector3 localScale = transform.localScale;
             localScale.x *= -1f;
             transform.localScale = localScale;
         }
@@ -207,7 +221,7 @@ public class PlayerMovement : MonoBehaviour, IPunObservable
     {
         if (!isDead && view.IsMine)
         {
-            horizontal = context.ReadValue<Vector2>().x;
+            horizontal = context.ReadValue<UnityEngine.Vector2>().x;
         }
     }
 
@@ -235,10 +249,10 @@ public class PlayerMovement : MonoBehaviour, IPunObservable
     {
         if(stream.IsWriting)
         {
-            stream.SendNext(isFacingRight);
+            stream.SendNext(transform.position);
         }else if(stream.IsReading)
         {
-            isFacingRight = (bool)stream.ReceiveNext();
+            smoothMove = (UnityEngine.Vector3)stream.ReceiveNext();
         }
     }
 }
