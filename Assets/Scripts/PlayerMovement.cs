@@ -6,10 +6,11 @@ using UnityEngine.InputSystem;
 using Photon.Pun;
 using System.Threading;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : MonoBehaviour //, IPunObservable
 {
 
     PhotonView view;
+    //float direction = 1;
 
     public Rigidbody2D rb;
     public Transform groundCheck;
@@ -214,4 +215,20 @@ public class PlayerMovement : MonoBehaviour
             healthBar.SetHealth(currentHealth);
         }
     }
+
+    /*
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if(stream.IsWriting)
+        {
+            stream.SendNext(transform.position);
+            stream.SendNext(transform.rotation);
+        }
+        if(stream.IsReading)
+        {
+            transform.position = (Vector2)stream.ReceiveNext();
+            transform.rotation = (Quaternion)stream.ReceiveNext();
+        }
+    }
+    */
 }
