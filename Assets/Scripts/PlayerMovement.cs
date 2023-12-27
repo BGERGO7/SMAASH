@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 using Photon.Pun;
 using System.Threading;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : MonoBehaviour, IPunObservable
 {
 
     PhotonView view;
@@ -32,6 +32,8 @@ public class PlayerMovement : MonoBehaviour
     
     public Joystick joystick;
 
+    public SpriteRenderer spriteRenderer;
+
 
     void Start()
     {
@@ -46,13 +48,17 @@ public class PlayerMovement : MonoBehaviour
     {
         if(view.IsMine)
         {
-            if (!isDead && !isFacingRight && horizontal > 0f)
+            if (!isDead/*&& !isFacingRight*/ && horizontal > 0f)
             {
-                Flip();
+                //Flip();
+                spriteRenderer.flipX = false;
+                view.RPC("OnDirectionChange_RIGHT", RpcTarget.Others);
             }
-            else if (!isDead && isFacingRight && horizontal < 0f)
+            else if (!isDead/*&& isFacingRight*/ && horizontal < 0f)
             {
-                Flip();
+                //Flip();
+                spriteRenderer.flipX = true;
+                view.RPC("OnDirectionChange_LEFT", RpcTarget.Others);
             }
 
             if (!isDead && !IsGrounded())
@@ -88,6 +94,16 @@ public class PlayerMovement : MonoBehaviour
                 animator.SetFloat("speed", Math.Abs(horizontal));
             }
         }        
+    }
+    [PunRPC]
+    void OnDirectionChange_LEFT()
+    {
+        spriteRenderer.flipX = true;
+    }
+    [PunRPC]
+    void OnDirectionChange_RIGHT()
+    {
+        spriteRenderer.flipX = false;
     }
     
 
@@ -212,6 +228,17 @@ public class PlayerMovement : MonoBehaviour
             currentHealth += amount;
 
             healthBar.SetHealth(currentHealth);
+        }
+    }
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if(stream.IsWriting)
+        {
+            stream.SendNext(isFacingRight);
+        }else if(stream.IsReading)
+        {
+            isFacingRight = (bool)stream.ReceiveNext();
         }
     }
 }

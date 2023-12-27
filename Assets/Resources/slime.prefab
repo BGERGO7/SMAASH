@@ -69,6 +69,7 @@ MonoBehaviour:
   attackNum: 1
   healthBar: {fileID: 1688634880571159540, guid: 9010eeb8a0a7443b0b9dd13605457218, type: 3}
   joystick: {fileID: 0}
+  spriteRenderer: {fileID: 4486674761032846597}
 --- !u!212 &4486674761032846597
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -390,6 +391,7 @@ MonoBehaviour:
   OwnershipTransfer: 0
   observableSearch: 2
   ObservedComponents:
+  - {fileID: 5571808162296724515}
   - {fileID: -2150176920962303105}
   - {fileID: -2769776375907694527}
   - {fileID: -7457931286131025161}
@@ -420,7 +422,7 @@ MonoBehaviour:
     ExtrapolateIncludingRoundTripTime: 1
     ExtrapolateNumberOfStoredPositions: 1
   m_RotationModel:
-    SynchronizeEnabled: 0
+    SynchronizeEnabled: 1
     InterpolateOption: 1
     InterpolateRotateTowardsSpeed: 180
     InterpolateLerpSpeed: 5
