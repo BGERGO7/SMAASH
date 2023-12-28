@@ -10,7 +10,6 @@ using System.Numerics;
 
 public class PlayerMovement : MonoBehaviour, IPunObservable
 {
-
     PhotonView view;
 
     public Rigidbody2D rb;
@@ -20,8 +19,6 @@ public class PlayerMovement : MonoBehaviour, IPunObservable
     private float horizontal;
     private float speed = 8f;
     public float jumpingPower = 10f;
-    private bool isFacingRight = true;
-
     private UnityEngine.Vector3 smoothMove;
 
     bool isDead = false;
@@ -39,6 +36,8 @@ public class PlayerMovement : MonoBehaviour, IPunObservable
 
     public SpriteRenderer spriteRenderer;
 
+    private InputActionAsset inputAsset;
+    private InputActionMap player;
 
     void Start()
     {
@@ -48,24 +47,48 @@ public class PlayerMovement : MonoBehaviour, IPunObservable
         joystick = GameObject.Find("Floating Joystick").GetComponent<Joystick>();
         view = GetComponent<PhotonView>();
     }
+
+    private void Awake()
+    {
+        //Megkeresi a sajat action mapjet
+        inputAsset = this.GetComponent<PlayerInput>().actions;
+        player = inputAsset.FindActionMap("Player");
+    }
+
+    private void OnEnable()
+    {
+        //Inditaskor hozzaadja
+        player.FindAction("Jump").started += Jump;
+        player.FindAction("Attack").started += Attack;
+        player.Enable();
+    }
+
+    private void OnDisable()
+    {
+        //Eltavolitja
+        player.FindAction("Jump").started -= Jump;
+        player.FindAction("Attack").started -= Attack;
+        player.Disable();
+    }
     
     void Update()
     {
+        //Ha mi iranyitjuk a karaktert
         if(view.IsMine)
         {
-            if (!isDead/*&& !isFacingRight*/ && horizontal > 0f)
+            //Karakter megforitasa
+            if (!isDead && horizontal > 0f)
             {
-                //Flip();
                 spriteRenderer.flipX = false;
                 view.RPC("OnDirectionChange_RIGHT", RpcTarget.Others);
             }
-            else if (!isDead/*&& isFacingRight*/ && horizontal < 0f)
+            else if (!isDead && horizontal < 0f)
             {
-                //Flip();
                 spriteRenderer.flipX = true;
                 view.RPC("OnDirectionChange_LEFT", RpcTarget.Others);
             }
 
+            //Jump animacio
             if (!isDead && !IsGrounded())
             {
                 animator.SetBool("isJumping", true);
@@ -74,6 +97,7 @@ public class PlayerMovement : MonoBehaviour, IPunObservable
                 animator.SetBool("isJumping", false);
             }
 
+            //Halal animacio es bool beallitasa
             if(currentHealth <= 0)
             {
                 animator.SetBool("isDead", true);
@@ -84,6 +108,7 @@ public class PlayerMovement : MonoBehaviour, IPunObservable
 
             if(!isDead)
             {
+                //Joystick csak ebben a tartomanyban eszelel es nem noveli a sebesseget
                 if(joystick.Horizontal >= .2f)
                 {
                     horizontal = speed;
@@ -100,6 +125,7 @@ public class PlayerMovement : MonoBehaviour, IPunObservable
             }
         }else
         {
+            //Ha nem mi iranyitunk, akkor smooth movemenet
             SmoothSyncMovement();
         }     
     }
@@ -118,35 +144,7 @@ public class PlayerMovement : MonoBehaviour, IPunObservable
     void OnDirectionChange_RIGHT()
     {
         spriteRenderer.flipX = false;
-    }
-    
-
-/*
-    private void FixedUpdate()
-    {
-        if(!isDead)
-        {
-            if(joystick.Horizontal >= .2f)
-            {
-                horizontal = speed;
-            }else if(joystick.Horizontal <= -.2f)
-            {
-                horizontal = -speed;
-            }else
-            {
-                horizontal = 0f;
-            }
-            rb.velocity = new Vector2(horizontal, rb.velocity.y);
-
-            animator.SetFloat("speed", Math.Abs(horizontal));
-        }
-    }
-*/
-
-    private void OnTriggerEnter2D(Collider2D collider)
-    {
-        TakeDamage(10);
-    }
+    }  
 
     public void Jump(InputAction.CallbackContext context)
     {
@@ -166,25 +164,8 @@ public class PlayerMovement : MonoBehaviour, IPunObservable
                 rb.velocity = UnityEngine.Vector2.up * jumpingPower;
             }
         }
-
-        /*
-        if(!isDead && IsGrounded())
-        {
-            extraJumps = extraJumpValue;
-        }
-
-        if(!isDead && context.performed && extraJumps > 0)
-        {
-            rb.velocity = Vector2.up * jumpingPower;
-            extraJumps--;
-        }else if(!isDead && context.performed && extraJumps == 0 && IsGrounded())
-        {
-            rb.velocity = Vector2.up * jumpingPower;
-        }
-        */
-
     }
-
+    
     public void Attack(InputAction.CallbackContext context)
     {
         if(!isDead && context.performed && view.IsMine)
@@ -206,45 +187,7 @@ public class PlayerMovement : MonoBehaviour, IPunObservable
         
     }
 
-    private void Flip()
-    {
-        if (!isDead && view.IsMine)
-        {
-            isFacingRight = !isFacingRight;
-            UnityEngine.Vector3 localScale = transform.localScale;
-            localScale.x *= -1f;
-            transform.localScale = localScale;
-        }
-    }
-
-    public void Move(InputAction.CallbackContext context)
-    {
-        if (!isDead && view.IsMine)
-        {
-            horizontal = context.ReadValue<UnityEngine.Vector2>().x;
-        }
-    }
-
-    void TakeDamage(int damage)
-	{
-        if(currentHealth <= maxHealth && currentHealth > 0)
-        {
-            currentHealth -= damage;
-
-		    healthBar.SetHealth(currentHealth);
-        }
-	}
-
-    void AddHealth(int amount)
-    {
-        if(currentHealth < maxHealth && currentHealth >= 0)
-        {
-            currentHealth += amount;
-
-            healthBar.SetHealth(currentHealth);
-        }
-    }
-
+    //Elkuldi a pozicionkat a serverre
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         if(stream.IsWriting)

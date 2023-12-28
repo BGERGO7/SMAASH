@@ -377,8 +377,8 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 63f41480-bf33-46a7-a869-2f69cc8b39d0
     m_ActionName: Player/Attack[/Keyboard/a]
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
+  m_NeverAutoSwitchControlSchemes: 1
+  m_DefaultControlScheme: Gamepad
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}

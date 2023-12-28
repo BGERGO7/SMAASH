@@ -15,6 +15,8 @@ public class CharacterManager : MonoBehaviour
     private int selectedOption = 0;
 
     // Start is called before the first frame update
+    
+    //Lementett karakter kivalasztasa
     void Start()
     {
         if(!PlayerPrefs.HasKey("selectedOption"))
@@ -27,6 +29,7 @@ public class CharacterManager : MonoBehaviour
         UpdateCharacter(selectedOption);
     }
 
+    //Kovetkezo karakter
     public void NextOption()
     {
         selectedOption++;
@@ -40,6 +43,7 @@ public class CharacterManager : MonoBehaviour
         Save();
     }
 
+    //Elozo karakter
     public void BackOption()
     {
         selectedOption--;
@@ -53,6 +57,7 @@ public class CharacterManager : MonoBehaviour
         Save();
     }
 
+    //Megjelenik a kepernyon a kivalasztott karakter
     private void UpdateCharacter(int selectedOption)
     {
         Character character = characterDatabase.GetCharacter(selectedOption);
@@ -60,15 +65,18 @@ public class CharacterManager : MonoBehaviour
         nameText.text = character.character_name;
     }
 
+    //Lekerdezi a karakter sorszamat
     private void Load()
     {
         selectedOption = PlayerPrefs.GetInt("selectedOption");
     }
+    //Lementi a karakter sorszamat
     private void Save()
     {
         PlayerPrefs.SetInt("selectedOption", selectedOption);
     }
 
+    //Betolti a lobbyt
     public void ChangeScene(int sceneID)
     {
         SceneManager.LoadScene(sceneID);
