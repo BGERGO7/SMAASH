@@ -1,15 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class Player : MonoBehaviour
 {
+
+    public float minX;
+    public float maxX;
+    public float minY;
+    public float maxY;
 
     public Character_Database characterDatabase;
     public SpriteRenderer artworkSprite;
     private int selectedOption = 0;
 
-      public GameObject[] playerPrefabs;
+    public GameObject[] playerPrefabs;
     // Start is called before the first frame update
     void Start()
     {
@@ -32,7 +38,8 @@ public class Player : MonoBehaviour
     private void Load()
     {
         selectedOption = PlayerPrefs.GetInt("selectedOption");
-        Instantiate(playerPrefabs[selectedOption]);
+        Vector2 randomPosition = new Vector2(Random.Range(minX, maxX), Random.Range(minY, maxY));
+        PhotonNetwork.Instantiate(playerPrefabs[selectedOption].name, randomPosition, Quaternion.identity);
     }
 
 }

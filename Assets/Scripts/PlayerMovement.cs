@@ -3,9 +3,15 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
+using Photon.Pun;
+using System.Threading;
+using Photon.Pun.UtilityScripts;
+using System.Numerics;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : MonoBehaviour, IPunObservable
 {
+    PhotonView view;
+
     public Rigidbody2D rb;
     public Transform groundCheck;
     public LayerMask groundLayer;
@@ -13,7 +19,8 @@ public class PlayerMovement : MonoBehaviour
     private float horizontal;
     private float speed = 8f;
     public float jumpingPower = 10f;
-    private bool isFacingRight = true;
+    private UnityEngine.Vector3 smoothMove;
+
     bool isDead = false;
 
     public int maxHealth = 100;
@@ -27,6 +34,10 @@ public class PlayerMovement : MonoBehaviour
     
     public Joystick joystick;
 
+    public SpriteRenderer spriteRenderer;
+
+    private InputActionAsset inputAsset;
+    private InputActionMap player;
 
     void Start()
     {
@@ -34,106 +45,130 @@ public class PlayerMovement : MonoBehaviour
 		healthBar.SetMaxHealth(maxHealth);
         extraJumps = extraJumpValue;
         joystick = GameObject.Find("Floating Joystick").GetComponent<Joystick>();
+        view = GetComponent<PhotonView>();
+    }
 
+    private void Awake()
+    {
+        //Megkeresi a sajat action mapjet
+        inputAsset = this.GetComponent<PlayerInput>().actions;
+        player = inputAsset.FindActionMap("Player");
+    }
+
+    private void OnEnable()
+    {
+        //Inditaskor hozzaadja
+        player.FindAction("Jump").started += Jump;
+        player.FindAction("Attack").started += Attack;
+        player.Enable();
+    }
+
+    private void OnDisable()
+    {
+        //Eltavolitja
+        player.FindAction("Jump").started -= Jump;
+        player.FindAction("Attack").started -= Attack;
+        player.Disable();
     }
     
     void Update()
     {
-        if (!isDead && !isFacingRight && horizontal > 0f)
+        //Ha mi iranyitjuk a karaktert
+        if(view.IsMine)
         {
-            Flip();
-        }
-        else if (!isDead && isFacingRight && horizontal < 0f)
-        {
-            Flip();
-        }
-
-        if (!isDead && !IsGrounded())
-        {
-            animator.SetBool("isJumping", true);
-        } else
-        {
-            animator.SetBool("isJumping", false);
-        }
-
-        if(currentHealth <= 0)
-        {
-            animator.SetBool("isDead", true);
-            isDead = true;
-            horizontal = 0;
-            rb.velocity = new Vector2(horizontal, rb.velocity.y);
-        }
-
-        if(!isDead)
-        {
-            if(joystick.Horizontal >= .2f)
+            //Karakter megforitasa
+            if (!isDead && horizontal > 0f)
             {
-                horizontal = speed;
-            }else if(joystick.Horizontal <= -.2f)
-            {
-                horizontal = -speed;
-            }else
-            {
-                horizontal = 0f;
+                spriteRenderer.flipX = false;
+                view.RPC("OnDirectionChange_RIGHT", RpcTarget.Others);
             }
-            rb.velocity = new Vector2(horizontal, rb.velocity.y);
-
-            animator.SetFloat("speed", Math.Abs(horizontal));
-        }
-
-        
-    }
-    
-
-/*
-    private void FixedUpdate()
-    {
-        if(!isDead)
-        {
-            if(joystick.Horizontal >= .2f)
+            else if (!isDead && horizontal < 0f)
             {
-                horizontal = speed;
-            }else if(joystick.Horizontal <= -.2f)
-            {
-                horizontal = -speed;
-            }else
-            {
-                horizontal = 0f;
+                spriteRenderer.flipX = true;
+                view.RPC("OnDirectionChange_LEFT", RpcTarget.Others);
             }
-            rb.velocity = new Vector2(horizontal, rb.velocity.y);
 
-            animator.SetFloat("speed", Math.Abs(horizontal));
-        }
+            //Jump animacio
+            if (!isDead && !IsGrounded())
+            {
+                animator.SetBool("isJumping", true);
+            } else
+            {
+                animator.SetBool("isJumping", false);
+            }
+
+            //Halal animacio es bool beallitasa
+            if(currentHealth <= 0)
+            {
+                animator.SetBool("isDead", true);
+                isDead = true;
+                horizontal = 0;
+                rb.velocity = new UnityEngine.Vector2(horizontal, rb.velocity.y);
+            }
+
+            if(!isDead)
+            {
+                //Joystick csak ebben a tartomanyban eszelel es nem noveli a sebesseget
+                if(joystick.Horizontal >= .2f)
+                {
+                    horizontal = speed;
+                }else if(joystick.Horizontal <= -.2f)
+                {
+                    horizontal = -speed;
+                }else
+                {
+                    horizontal = 0f;
+                }
+                rb.velocity = new UnityEngine.Vector2(horizontal, rb.velocity.y);
+
+                animator.SetFloat("speed", Math.Abs(horizontal));
+            }
+        }else
+        {
+            //Ha nem mi iranyitunk, akkor smooth movemenet
+            SmoothSyncMovement();
+        }     
     }
-*/
 
-    private void OnTriggerEnter2D(Collider2D collider)
+    private void SmoothSyncMovement()
     {
-        TakeDamage(10);
+        transform.position = UnityEngine.Vector3.Lerp(transform.position, smoothMove, Time.deltaTime * 10);
     }
+
+    [PunRPC]
+    void OnDirectionChange_LEFT()
+    {
+        spriteRenderer.flipX = true;
+    }
+    [PunRPC]
+    void OnDirectionChange_RIGHT()
+    {
+        spriteRenderer.flipX = false;
+    }  
 
     public void Jump(InputAction.CallbackContext context)
     {
-
-        if(!isDead && IsGrounded())
+        if(view.IsMine)
         {
-            extraJumps = extraJumpValue;
+            if(!isDead && IsGrounded())
+            {
+                extraJumps = extraJumpValue;
+            }
+
+            if(!isDead && context.performed && extraJumps > 0)
+            {
+                rb.velocity = UnityEngine.Vector2.up * jumpingPower;
+                extraJumps--;
+            }else if(!isDead && context.performed && extraJumps == 0 && IsGrounded())
+            {
+                rb.velocity = UnityEngine.Vector2.up * jumpingPower;
+            }
         }
-
-        if(!isDead && context.performed && extraJumps > 0)
-        {
-            rb.velocity = Vector2.up * jumpingPower;
-            extraJumps--;
-        }else if(!isDead && context.performed && extraJumps == 0 && IsGrounded())
-        {
-            rb.velocity = Vector2.up * jumpingPower;
-        }
-
     }
-
+    
     public void Attack(InputAction.CallbackContext context)
     {
-        if(!isDead && context.performed)
+        if(!isDead && context.performed && view.IsMine)
         {
             if(attackNum == 1)
             {
@@ -152,42 +187,15 @@ public class PlayerMovement : MonoBehaviour
         
     }
 
-    private void Flip()
+    //Elkuldi a pozicionkat a serverre
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
-        if (!isDead)
+        if(stream.IsWriting)
         {
-            isFacingRight = !isFacingRight;
-            Vector3 localScale = transform.localScale;
-            localScale.x *= -1f;
-            transform.localScale = localScale;
-        }
-    }
-
-    public void Move(InputAction.CallbackContext context)
-    {
-        if (!isDead)
+            stream.SendNext(transform.position);
+        }else if(stream.IsReading)
         {
-            horizontal = context.ReadValue<Vector2>().x;
-        }
-    }
-
-    void TakeDamage(int damage)
-	{
-        if(currentHealth <= maxHealth && currentHealth > 0)
-        {
-            currentHealth -= damage;
-
-		    healthBar.SetHealth(currentHealth);
-        }
-	}
-
-    void AddHealth(int amount)
-    {
-        if(currentHealth < maxHealth && currentHealth >= 0)
-        {
-            currentHealth += amount;
-
-            healthBar.SetHealth(currentHealth);
+            smoothMove = (UnityEngine.Vector3)stream.ReceiveNext();
         }
     }
 }
