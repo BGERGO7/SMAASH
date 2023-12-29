@@ -76,7 +76,7 @@ public class CharacterManager : MonoBehaviour
         PlayerPrefs.SetInt("selectedOption", selectedOption);
     }
 
-    //Betolti a lobbyt
+    //Atvalt a loadingre
     public void ChangeScene(int sceneID)
     {
         SceneManager.LoadScene(sceneID);
