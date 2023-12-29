@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4201173200840889267
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3735998398671886529}
+  m_Layer: 0
+  m_Name: AttackPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3735998398671886529
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4201173200840889267}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.398, y: 0.048, z: 0}
+  m_LocalScale: {x: 0.3449066, y: 0.35970396, z: 0.79314727}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2750386067445821512}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4294437444331051274
 GameObject:
   m_ObjectHideFlags: 0
@@ -41,6 +72,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2750386067445821512}
   - component: {fileID: 8095103847225091386}
+  - component: {fileID: 141017767031077707}
+  - component: {fileID: 4356006495732988501}
   - component: {fileID: 5567647222599282870}
   - component: {fileID: 3824530667472671693}
   - component: {fileID: 1472101428765531016}
@@ -73,6 +106,7 @@ Transform:
   m_Children:
   - {fileID: 8434891907969748161}
   - {fileID: 5259310616585269886}
+  - {fileID: 3735998398671886529}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8095103847225091386
@@ -94,13 +128,50 @@ MonoBehaviour:
     m_Bits: 64
   animator: {fileID: 497933689935421191}
   jumpingPower: 10
-  maxHealth: 100
+  maxHealth: 1
   currentHealth: 0
   extraJumpValue: 2
   attackNum: 1
   healthBar: {fileID: 1688634880571159540, guid: 9010eeb8a0a7443b0b9dd13605457218, type: 3}
   joystick: {fileID: 6100916008954871472, guid: 0d230cc8be529a542a08cb878ab14b18, type: 3}
   spriteRenderer: {fileID: 5567647222599282870}
+--- !u!114 &141017767031077707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5096639677504068731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4b1a9c12261045f991e665556e422e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 497933689935421191}
+  maxHealth: 100
+  currentHealth: 0
+  healthBar: {fileID: 1688634880571159540, guid: 9010eeb8a0a7443b0b9dd13605457218, type: 3}
+--- !u!114 &4356006495732988501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5096639677504068731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 839071818d4b24c6692cecfba7679478, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 497933689935421191}
+  attackPoint: {fileID: 3735998398671886529}
+  attackRange: 1.04
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  attackDamage: 40
+  isDead: 0
+  attackNum: 0
 --- !u!212 &5567647222599282870
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -363,8 +434,8 @@ MonoBehaviour:
     m_ActionName: UI/TrackedDeviceOrientation
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8095103847225091386}
-        m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
+      - m_Target: {fileID: 4356006495732988501}
+        m_TargetAssemblyTypeName: MeleeAttack, Assembly-CSharp
         m_MethodName: Attack
         m_Mode: 0
         m_Arguments:

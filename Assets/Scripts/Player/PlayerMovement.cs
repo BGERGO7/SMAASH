@@ -42,7 +42,6 @@ public class PlayerMovement : MonoBehaviour, IPunObservable
     void Start()
     {
 		currentHealth = maxHealth;
-		healthBar.SetMaxHealth(maxHealth);
         extraJumps = extraJumpValue;
         joystick = GameObject.Find("Floating Joystick").GetComponent<Joystick>();
         view = GetComponent<PhotonView>();
@@ -59,7 +58,6 @@ public class PlayerMovement : MonoBehaviour, IPunObservable
     {
         //Inditaskor hozzaadja
         player.FindAction("Jump").started += Jump;
-        player.FindAction("Attack").started += Attack;
         player.Enable();
     }
 
@@ -67,7 +65,6 @@ public class PlayerMovement : MonoBehaviour, IPunObservable
     {
         //Eltavolitja
         player.FindAction("Jump").started -= Jump;
-        player.FindAction("Attack").started -= Attack;
         player.Disable();
     }
     
@@ -162,22 +159,6 @@ public class PlayerMovement : MonoBehaviour, IPunObservable
             }else if(!isDead && context.performed && extraJumps == 0 && IsGrounded())
             {
                 rb.velocity = UnityEngine.Vector2.up * jumpingPower;
-            }
-        }
-    }
-    
-    public void Attack(InputAction.CallbackContext context)
-    {
-        if(!isDead && context.performed && view.IsMine)
-        {
-            if(attackNum == 1)
-            {
-                animator.SetTrigger("Attack1");
-                attackNum = 2;
-            }else if(attackNum == 2)
-            {
-                animator.SetTrigger("Attack2");
-                attackNum = 1;
             }
         }
     }
