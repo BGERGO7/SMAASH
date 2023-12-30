@@ -41,6 +41,8 @@ MonoBehaviour:
   - RespawnSpaceship
   - OnDirectionChange_LEFT
   - OnDirectionChange_RIGHT
+  - TakeDamage
+  - Attack
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

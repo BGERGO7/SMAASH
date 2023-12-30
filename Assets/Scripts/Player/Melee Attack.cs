@@ -52,6 +52,7 @@ public class MeleeAttack : MonoBehaviour
     }
 
 
+    [PunRPC]
     public void Attack(InputAction.CallbackContext context)
     {
         if(this.enabled == true && context.performed && view.IsMine)
@@ -62,7 +63,7 @@ public class MeleeAttack : MonoBehaviour
             Collider2D hitEnemy = Physics2D.OverlapCircle(attackPoint.position, attackRange, enemyLayer);
 
             //TakeDmg script functionjet lehivja
-            hitEnemy.GetComponent<TakeDmg>().TakeDamage(damage);
+            hitEnemy.GetComponent<TakeDmg>().TakeDamageCall(damage);
         }
     }
 

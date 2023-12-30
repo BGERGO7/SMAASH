@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HealthBar : MonoBehaviour
+public class HealthBar : MonoBehaviour, IPunObservable
 {
 
 	public Slider slider;
@@ -25,4 +26,17 @@ public class HealthBar : MonoBehaviour
 		fill.color = gradient.Evaluate(slider.normalizedValue);
 	}
 
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if(stream.IsWriting)
+		{
+			stream.SendNext(slider.maxValue);
+			stream.SendNext(slider.value);
+			stream.SendNext(fill.color);
+		}else{
+			slider.maxValue = (int)stream.ReceiveNext();
+			slider.value = (int)stream.ReceiveNext();
+			fill.color = (Color)stream.ReceiveNext();
+		}
+    }
 }
