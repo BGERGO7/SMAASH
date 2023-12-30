@@ -57,32 +57,12 @@ public class MeleeAttack : MonoBehaviour
     {
         if(!isDead && context.performed && view.IsMine)
         {
-            /*
-            if(attackNum == 1)
-            {
-                animator.SetTrigger("Attack1");
-                attackNum = 2;
-            }else if(attackNum == 2)
-            {
-                animator.SetTrigger("Attack2");
-                attackNum = 1;
-            }
-            */
-
             animator.SetTrigger("Attack1");
 
             Collider2D hitEnemy = Physics2D.OverlapCircle(attackPoint.position, attackRange, enemyLayer);
 
             Debug.Log("We hit " + hitEnemy.name);
             hitEnemy.GetComponent<TakeDmg>().TakeDamage(damage);
-            
-            /*
-            foreach(Collider2D enemy in hitEnemy)
-            {
-                Debug.Log("We hit " + enemy.name);
-                enemy.GetComponent<TakeDmg>().TakeDamage(damage);
-            }
-            */
         }
     }
 

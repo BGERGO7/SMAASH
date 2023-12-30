@@ -20,7 +20,6 @@ public class PlayerMovement : MonoBehaviour, IPunObservable
     private float speed = 8f;
     public float jumpingPower = 10f;
     private UnityEngine.Vector3 smoothMove;
-
     bool isDead = false;
 
     public int maxHealth = 100;
@@ -30,8 +29,6 @@ public class PlayerMovement : MonoBehaviour, IPunObservable
 
     public int attackNum = 1;
 
-    public HealthBar healthBar;
-    
     public Joystick joystick;
 
     public SpriteRenderer spriteRenderer;
