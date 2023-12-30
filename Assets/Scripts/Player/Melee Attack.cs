@@ -63,7 +63,7 @@ public class MeleeAttack : MonoBehaviour
             Collider2D hitEnemy = Physics2D.OverlapCircle(attackPoint.position, attackRange, enemyLayer);
 
             //TakeDmg script functionjet lehivja
-            hitEnemy.GetComponent<TakeDmg>().TakeDamageCall(damage);
+            hitEnemy.GetComponent<TakeDmg>().TakeDamageCaller(damage);
         }
     }
 

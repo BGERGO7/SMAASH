@@ -33,10 +33,16 @@ public class HealthBar : MonoBehaviour, IPunObservable
 			stream.SendNext(slider.maxValue);
 			stream.SendNext(slider.value);
 			stream.SendNext(fill.color);
+			Debug.Log("IsWriting: slider.maxValue: " + slider.maxValue);
+			Debug.Log("IsWriting: slider.value: " + slider.value);
+			Debug.Log("IsWriting: fill.color: " + fill.color.ToString());
 		}else{
 			slider.maxValue = (int)stream.ReceiveNext();
 			slider.value = (int)stream.ReceiveNext();
 			fill.color = (Color)stream.ReceiveNext();
+			Debug.Log("IsReading: slider.maxValue: " + slider.maxValue);
+			Debug.Log("IsReading: slider.value: " + slider.value);
+			Debug.Log("IsReading: fill.color: " + fill.color.ToString());
 		}
     }
 }
