@@ -15,8 +15,8 @@ public class MeleeAttack : MonoBehaviour
     public Transform attackPoint;
     public float attackRange = 0.5f;
     public LayerMask enemyLayer;
+    
     public int attackDamage = 40;
-    public bool isDead;
     public int attackNum;
 
     private InputActionAsset inputAsset;
@@ -26,7 +26,6 @@ public class MeleeAttack : MonoBehaviour
 
     public void Start()
     {
-        isDead = false;
         attackNum = 1;
         view = GetComponent<PhotonView>();
     }
@@ -55,17 +54,19 @@ public class MeleeAttack : MonoBehaviour
 
     public void Attack(InputAction.CallbackContext context)
     {
-        if(!isDead && context.performed && view.IsMine)
+        if(this.enabled == true && context.performed && view.IsMine)
         {
             animator.SetTrigger("Attack1");
 
+            //Valtozoba tarolja azt a collidert (masik jatekost), ami a koron belul van
             Collider2D hitEnemy = Physics2D.OverlapCircle(attackPoint.position, attackRange, enemyLayer);
 
-            Debug.Log("We hit " + hitEnemy.name);
+            //TakeDmg script functionjet lehivja
             hitEnemy.GetComponent<TakeDmg>().TakeDamage(damage);
         }
     }
 
+    //Lerajzolja a kort a jobb lathatosagert az editorban
     void OnDrawGizmosSelected()
     {
         if (attackPoint == null)

@@ -7,6 +7,7 @@ using Photon.Pun;
 using System.Threading;
 using Photon.Pun.UtilityScripts;
 using System.Numerics;
+using System.Runtime.InteropServices;
 
 public class PlayerMovement : MonoBehaviour, IPunObservable
 {
@@ -15,21 +16,19 @@ public class PlayerMovement : MonoBehaviour, IPunObservable
     public Rigidbody2D rb;
     public Transform groundCheck;
     public LayerMask groundLayer;
+
     public Animator animator;
+
     private float horizontal;
     private float speed = 8f;
     public float jumpingPower = 10f;
-    private UnityEngine.Vector3 smoothMove;
-    bool isDead = false;
+    public Joystick joystick;
 
-    public int maxHealth = 100;
-	public int currentHealth;
+    private UnityEngine.Vector3 smoothMove;
+
     private int extraJumps;
     public int extraJumpValue = 2;
-
     public int attackNum = 1;
-
-    public Joystick joystick;
 
     public SpriteRenderer spriteRenderer;
 
@@ -38,7 +37,6 @@ public class PlayerMovement : MonoBehaviour, IPunObservable
 
     void Start()
     {
-		currentHealth = maxHealth;
         extraJumps = extraJumpValue;
         joystick = GameObject.Find("Floating Joystick").GetComponent<Joystick>();
         view = GetComponent<PhotonView>();
@@ -71,19 +69,19 @@ public class PlayerMovement : MonoBehaviour, IPunObservable
         if(view.IsMine)
         {
             //Karakter megforitasa
-            if (!isDead && horizontal > 0f)
+            if (this.enabled == true && horizontal > 0f)
             {
                 spriteRenderer.flipX = false;
                 view.RPC("OnDirectionChange_RIGHT", RpcTarget.Others);
             }
-            else if (!isDead && horizontal < 0f)
+            else if (this.enabled == true && horizontal < 0f)
             {
                 spriteRenderer.flipX = true;
                 view.RPC("OnDirectionChange_LEFT", RpcTarget.Others);
             }
 
             //Jump animacio
-            if (!isDead && !IsGrounded())
+            if (this.enabled == true && !IsGrounded())
             {
                 animator.SetBool("isJumping", true);
             } else
@@ -91,16 +89,7 @@ public class PlayerMovement : MonoBehaviour, IPunObservable
                 animator.SetBool("isJumping", false);
             }
 
-            //Halal animacio es bool beallitasa
-            if(currentHealth <= 0)
-            {
-                animator.SetBool("isDead", true);
-                isDead = true;
-                horizontal = 0;
-                rb.velocity = new UnityEngine.Vector2(horizontal, rb.velocity.y);
-            }
-
-            if(!isDead)
+            if(this.enabled == true)
             {
                 //Joystick csak ebben a tartomanyban eszelel es nem noveli a sebesseget
                 if(joystick.Horizontal >= .2f)
@@ -144,16 +133,16 @@ public class PlayerMovement : MonoBehaviour, IPunObservable
     {
         if(view.IsMine)
         {
-            if(!isDead && IsGrounded())
+            if(this.enabled == true && IsGrounded())
             {
                 extraJumps = extraJumpValue;
             }
 
-            if(!isDead && context.performed && extraJumps > 0)
+            if(this.enabled == true && context.performed && extraJumps > 0)
             {
                 rb.velocity = UnityEngine.Vector2.up * jumpingPower;
                 extraJumps--;
-            }else if(!isDead && context.performed && extraJumps == 0 && IsGrounded())
+            }else if(this.enabled == true && context.performed && extraJumps == 0 && IsGrounded())
             {
                 rb.velocity = UnityEngine.Vector2.up * jumpingPower;
             }
@@ -165,15 +154,17 @@ public class PlayerMovement : MonoBehaviour, IPunObservable
         
     }
 
-    //Elkuldi a pozicionkat a serverre
+    //Elkuldi a poziciot a serverre
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         if(stream.IsWriting)
         {
             stream.SendNext(transform.position);
+            stream.SendNext(this.enabled);
         }else if(stream.IsReading)
         {
             smoothMove = (UnityEngine.Vector3)stream.ReceiveNext();
+            this.enabled = (bool)stream.ReceiveNext();
         }
     }
 }
