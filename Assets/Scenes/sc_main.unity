@@ -143,6 +143,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: HealthBar1
       objectReference: {fileID: 0}
+    - target: {fileID: 6120146771159655021, guid: 9010eeb8a0a7443b0b9dd13605457218, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8996901446478922226, guid: 9010eeb8a0a7443b0b9dd13605457218, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1616,6 +1620,10 @@ PrefabInstance:
     - target: {fileID: 6120146771159655021, guid: 9010eeb8a0a7443b0b9dd13605457218, type: 3}
       propertyPath: m_Name
       value: HealthBar2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6120146771159655021, guid: 9010eeb8a0a7443b0b9dd13605457218, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8996901446478922226, guid: 9010eeb8a0a7443b0b9dd13605457218, type: 3}
       propertyPath: m_Pivot.x

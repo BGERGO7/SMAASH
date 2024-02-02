@@ -11,12 +11,16 @@ public class HealthBar : MonoBehaviour, IPunObservable
 	public Gradient gradient;
 	public Image fill;
 
+	public bool isTaken = false;
+
 	public void SetMaxHealth(int health)
 	{
 		slider.maxValue = health;
 		slider.value = health;
 
 		fill.color = gradient.Evaluate(1f);
+
+		isTaken = true;
 	}
 
     public void SetHealth(int health)
