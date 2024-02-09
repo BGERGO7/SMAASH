@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -12,6 +13,7 @@ public class CameraMotion : MonoBehaviour
     private int playerLayerNumber = 7;
     public float yOffset = 0.2f;
     public float zOffset = 15f;
+    PhotonView view;
 
     private GameObject[] FindPlayers()
     {
@@ -52,7 +54,6 @@ public class CameraMotion : MonoBehaviour
     {
         playerPos = FindPlayers()[0].transform;
 
-         MoveCamera();
-        
+        MoveCamera();
     }
 }
