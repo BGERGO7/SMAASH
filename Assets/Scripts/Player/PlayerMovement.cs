@@ -16,6 +16,7 @@ public class PlayerMovement : MonoBehaviour, IPunObservable
     public Rigidbody2D rb;
     public Transform groundCheck;
     public LayerMask groundLayer;
+    public GameObject attackPoint;
 
     public Animator animator;
 
@@ -72,11 +73,13 @@ public class PlayerMovement : MonoBehaviour, IPunObservable
             if (this.enabled == true && horizontal > 0f)
             {
                 spriteRenderer.flipX = false;
+                attackPoint.transform.position = new UnityEngine.Vector2(this.transform.position.x + 1f, this.transform.position.y);
                 view.RPC("OnDirectionChange_RIGHT", RpcTarget.Others);
             }
             else if (this.enabled == true && horizontal < 0f)
             {
                 spriteRenderer.flipX = true;
+                attackPoint.transform.position = new UnityEngine.Vector2(this.transform.position.x - 1f, this.transform.position.y);
                 view.RPC("OnDirectionChange_LEFT", RpcTarget.Others);
             }
 
@@ -122,11 +125,13 @@ public class PlayerMovement : MonoBehaviour, IPunObservable
     void OnDirectionChange_LEFT()
     {
         spriteRenderer.flipX = true;
+        attackPoint.transform.position = new UnityEngine.Vector2(this.transform.position.x - 1f, this.transform.position.y);
     }
     [PunRPC]
     void OnDirectionChange_RIGHT()
     {
         spriteRenderer.flipX = false;
+        attackPoint.transform.position = new UnityEngine.Vector2(this.transform.position.x + 1f, this.transform.position.y);
     }  
 
     public void Jump(InputAction.CallbackContext context)
