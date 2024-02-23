@@ -41,6 +41,8 @@ public class PlayerMovement : MonoBehaviour, IPunObservable
         extraJumps = extraJumpValue;
         joystick = GameObject.Find("Floating Joystick").GetComponent<Joystick>();
         view = GetComponent<PhotonView>();
+
+        //Camera.main.GetComponent<CameraMotion>().setTarget(gameObject.transform);
     }
 
     private void Awake()
@@ -73,13 +75,13 @@ public class PlayerMovement : MonoBehaviour, IPunObservable
             if (this.enabled == true && horizontal > 0f)
             {
                 spriteRenderer.flipX = false;
-                attackPoint.transform.position = new UnityEngine.Vector2(this.transform.position.x + 1f, this.transform.position.y);
+                //attackPoint.transform.position = new UnityEngine.Vector2(this.transform.position.x + 1f, this.transform.position.y);
                 view.RPC("OnDirectionChange_RIGHT", RpcTarget.Others);
             }
             else if (this.enabled == true && horizontal < 0f)
             {
                 spriteRenderer.flipX = true;
-                attackPoint.transform.position = new UnityEngine.Vector2(this.transform.position.x - 1f, this.transform.position.y);
+                //attackPoint.transform.position = new UnityEngine.Vector2(this.transform.position.x - 1f, this.transform.position.y);
                 view.RPC("OnDirectionChange_LEFT", RpcTarget.Others);
             }
 
