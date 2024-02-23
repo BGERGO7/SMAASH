@@ -28,6 +28,8 @@ public class MeleeAttack : MonoBehaviour
     {
         attackNum = 1;
         view = GetComponent<PhotonView>();
+
+        //teszt
     }
 
     private void Awake()
