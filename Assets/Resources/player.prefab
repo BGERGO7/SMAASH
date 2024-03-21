@@ -73,7 +73,6 @@ GameObject:
   - component: {fileID: 3855804925854311643}
   - component: {fileID: 1470687258157559453}
   - component: {fileID: 5700997324441665112}
-  - component: {fileID: 7081561493549654947}
   m_Layer: 3
   m_Name: cam
   m_TagString: Untagged
@@ -155,20 +154,6 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5065520332805221432}
   m_Enabled: 1
---- !u!114 &7081561493549654947
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5065520332805221432}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce717b0d43db19f4eb21ee5cd60c82fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  yOffset: 0
-  zOffset: 0
 --- !u!1 &5096639677504068731
 GameObject:
   m_ObjectHideFlags: 0
@@ -191,6 +176,7 @@ GameObject:
   - component: {fileID: -6514924453519786470}
   - component: {fileID: 198425999526553580}
   - component: {fileID: 1722907815526246828}
+  - component: {fileID: 6792817095593775094}
   m_Layer: 3
   m_Name: player
   m_TagString: Untagged
@@ -691,6 +677,20 @@ MonoBehaviour:
   m_SynchronizeLayers:
   - SynchronizeType: 0
     LayerIndex: 0
+--- !u!114 &6792817095593775094
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5096639677504068731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62b70c6fa3e69304889d60f467233064, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  yOffset: 1.5
+  zOffset: -9
 --- !u!1 &5818609464253182864
 GameObject:
   m_ObjectHideFlags: 0

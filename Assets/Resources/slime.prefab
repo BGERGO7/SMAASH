@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 3853280999163101564}
   - component: {fileID: 3902745146278670053}
   - component: {fileID: 1550625282838295639}
-  - component: {fileID: 7842124512847138102}
   m_Layer: 3
   m_Name: cam
   m_TagString: Untagged
@@ -93,20 +92,6 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 594775529136307252}
   m_Enabled: 1
---- !u!114 &7842124512847138102
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 594775529136307252}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce717b0d43db19f4eb21ee5cd60c82fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  yOffset: -2
-  zOffset: -1
 --- !u!1 &4021654725828388503
 GameObject:
   m_ObjectHideFlags: 0
@@ -128,6 +113,7 @@ GameObject:
   - component: {fileID: -2150176920962303105}
   - component: {fileID: -2769776375907694527}
   - component: {fileID: -7457931286131025161}
+  - component: {fileID: 9175846915309582073}
   m_Layer: 3
   m_Name: slime
   m_TagString: Untagged
@@ -170,6 +156,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  attackPoint: {fileID: 0}
   animator: {fileID: 7715241876941772291}
   jumpingPower: 10
   joystick: {fileID: 6100916008954871472, guid: 0d230cc8be529a542a08cb878ab14b18, type: 3}
@@ -594,6 +581,20 @@ MonoBehaviour:
   m_SynchronizeLayers:
   - SynchronizeType: 0
     LayerIndex: 0
+--- !u!114 &9175846915309582073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4021654725828388503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62b70c6fa3e69304889d60f467233064, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  yOffset: 1.5
+  zOffset: -9
 --- !u!1 &4114129097919910443
 GameObject:
   m_ObjectHideFlags: 0
