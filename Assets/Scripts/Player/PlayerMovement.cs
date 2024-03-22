@@ -36,6 +36,7 @@ public class PlayerMovement : MonoBehaviour, IPunObservable
     private InputActionAsset inputAsset;
     private InputActionMap player;
 
+
     void Start()
     {
         extraJumps = extraJumpValue;
@@ -168,9 +169,11 @@ public class PlayerMovement : MonoBehaviour, IPunObservable
         {
             stream.SendNext(transform.position);
             stream.SendNext(this.enabled);
+            stream.SendNext(spriteRenderer.flipX);
         }else if(stream.IsReading)
         {
             smoothMove = (UnityEngine.Vector3)stream.ReceiveNext();
+            //spriteRenderer.flipX = (bool)stream.ReceiveNext();
             this.enabled = (bool)stream.ReceiveNext();
         }
     }
