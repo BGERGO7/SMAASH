@@ -11,9 +11,14 @@ public class MeleeAttack : MonoBehaviour
     PhotonView view;
 
     public Animator animator;
+    private float horizontal;
 
     public Transform attackPoint;
-    public float attackRange = 0.5f;
+    //public Transform attackPointOpposite;
+
+    //public Transform attackVector;
+
+    public float attackRange = 1f;
     public LayerMask enemyLayer;
     
     public int attackDamage = 40;
@@ -27,10 +32,39 @@ public class MeleeAttack : MonoBehaviour
     public void Start()
     {
         attackNum = 1;
-        view = GetComponent<PhotonView>();
+        view = GetComponent<PhotonView>(); 
+
+        //attackVector = attackPoint;
 
         //teszt
     }
+
+/*
+    public void Update()
+    {
+        if(view.IsMine)
+        {
+            if (this.enabled == true && horizontal > 0f)
+            {
+                //spriteRenderer.flipX = false;
+                //attackPoint.transform.position = new UnityEngine.Vector2(this.transform.position.x + 1f, this.transform.position.y);
+                
+                //view.RPC("OnDirectionChange_RIGHT", RpcTarget.Others);
+
+                //attackVector = attackPoint;
+            }
+            else if (this.enabled == true && horizontal < 0f)
+            {
+                //spriteRenderer.flipX = true;
+                //attackPoint.transform.position = new UnityEngine.Vector2(this.transform.position.x - 1f, this.transform.position.y);
+                //view.RPC("OnDirectionChange_LEFT", RpcTarget.Others);
+
+                attackVector = attackPointOpposite;
+            }
+        }
+    }
+
+    */
 
     private void Awake()
     {
