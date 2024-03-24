@@ -119,6 +119,7 @@ public class PlayerMovement : MonoBehaviour, IPunObservable
         }     
     }
 
+    //RANDOM COMMENT (test :) )
     private void SmoothSyncMovement()
     {
         transform.position = UnityEngine.Vector3.Lerp(transform.position, smoothMove, Time.deltaTime * 10);
