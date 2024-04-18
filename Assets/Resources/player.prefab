@@ -174,7 +174,7 @@ GameObject:
   - component: {fileID: 497933689935421191}
   - component: {fileID: -1465372070467415259}
   - component: {fileID: -6514924453519786470}
-  - component: {fileID: 198425999526553580}
+  - component: {fileID: 1566696498559100391}
   - component: {fileID: 1722907815526246828}
   - component: {fileID: 6792817095593775094}
   m_Layer: 3
@@ -590,7 +590,7 @@ MonoBehaviour:
   - {fileID: 8095103847225091386}
   - {fileID: 141017767031077707}
   - {fileID: -6514924453519786470}
-  - {fileID: 198425999526553580}
+  - {fileID: 1566696498559100391}
   - {fileID: 1722907815526246828}
   sceneViewId: 0
   InstantiationId: 0
@@ -628,7 +628,7 @@ MonoBehaviour:
     InterpolateOption: 0
     InterpolateMoveTowardsSpeed: 1
     InterpolateLerpSpeed: 0
---- !u!114 &198425999526553580
+--- !u!114 &1566696498559100391
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -642,7 +642,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_SynchronizeVelocity: 1
   m_SynchronizeAngularVelocity: 0
-  m_TeleportEnabled: 0
+  m_TeleportEnabled: 1
   m_TeleportIfDistanceGreaterThan: 3
 --- !u!114 &1722907815526246828
 MonoBehaviour:
