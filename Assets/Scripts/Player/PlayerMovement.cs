@@ -9,7 +9,7 @@ using Photon.Pun.UtilityScripts;
 using System.Numerics;
 using System.Runtime.InteropServices;
 
-public class PlayerMovement : MonoBehaviour, IPunObservable
+public class PlayerMovement : MonoBehaviour//, IPunObservable
 {
     PhotonView view;
 
@@ -30,6 +30,7 @@ public class PlayerMovement : MonoBehaviour, IPunObservable
     private int extraJumps;
     public int extraJumpValue = 2;
     public int attackNum = 1;
+
 
     public SpriteRenderer spriteRenderer;
 
@@ -67,7 +68,7 @@ public class PlayerMovement : MonoBehaviour, IPunObservable
         player.Disable();
     }
     
-    void Update()
+    void FixedUpdate()
     {
         //Ha mi iranyitjuk a karaktert
         if(view.IsMine)
@@ -77,13 +78,13 @@ public class PlayerMovement : MonoBehaviour, IPunObservable
             {
                 spriteRenderer.flipX = false;
                 attackPoint.transform.position = new UnityEngine.Vector2(this.transform.position.x + 1f, this.transform.position.y);
-                view.RPC("OnDirectionChange_RIGHT", RpcTarget.Others);
+                //view.RPC("OnDirectionChange_RIGHT", RpcTarget.Others);
             }
             else if (this.enabled == true && horizontal < 0f)
             {
                 spriteRenderer.flipX = true;
                 attackPoint.transform.position = new UnityEngine.Vector2(this.transform.position.x - 1f, this.transform.position.y);
-                view.RPC("OnDirectionChange_LEFT", RpcTarget.Others);
+                //view.RPC("OnDirectionChange_LEFT", RpcTarget.Others);
             }
 
             //Jump animacio
@@ -112,15 +113,17 @@ public class PlayerMovement : MonoBehaviour, IPunObservable
 
                 animator.SetFloat("speed", Math.Abs(horizontal));
             }
-        }else
+        }
+        /*
+        else
         {
             //Ha nem mi iranyitunk, akkor smooth movemenet
             SmoothSyncMovement();
         }     
+        */
     }
 
-    //yuigwfeguy
-    //RANDOM COMMENT (test :) )
+/*
     private void SmoothSyncMovement()
     {
         transform.position = UnityEngine.Vector3.Lerp(transform.position, smoothMove, Time.deltaTime * 10);
@@ -138,6 +141,8 @@ public class PlayerMovement : MonoBehaviour, IPunObservable
         spriteRenderer.flipX = false;
         attackPoint.transform.position = new UnityEngine.Vector2(this.transform.position.x + 1f, this.transform.position.y);
     }  
+
+    */
 
     public void Jump(InputAction.CallbackContext context)
     {
@@ -164,6 +169,7 @@ public class PlayerMovement : MonoBehaviour, IPunObservable
         
     }
 
+    /*
     //Elkuldi a poziciot a serverre
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
@@ -179,4 +185,6 @@ public class PlayerMovement : MonoBehaviour, IPunObservable
             this.enabled = (bool)stream.ReceiveNext();
         }
     }
+
+    */
 }
