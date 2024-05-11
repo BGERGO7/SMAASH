@@ -78,13 +78,13 @@ public class PlayerMovement : MonoBehaviour//, IPunObservable
             {
                 spriteRenderer.flipX = false;
                 attackPoint.transform.position = new UnityEngine.Vector2(this.transform.position.x + 1f, this.transform.position.y);
-                //view.RPC("OnDirectionChange_RIGHT", RpcTarget.Others);
+                view.RPC("OnDirectionChange_RIGHT", RpcTarget.Others);
             }
             else if (this.enabled == true && horizontal < 0f)
             {
                 spriteRenderer.flipX = true;
                 attackPoint.transform.position = new UnityEngine.Vector2(this.transform.position.x - 1f, this.transform.position.y);
-                //view.RPC("OnDirectionChange_LEFT", RpcTarget.Others);
+                view.RPC("OnDirectionChange_LEFT", RpcTarget.Others);
             }
 
             //Jump animacio
@@ -128,7 +128,7 @@ public class PlayerMovement : MonoBehaviour//, IPunObservable
     {
         transform.position = UnityEngine.Vector3.Lerp(transform.position, smoothMove, Time.deltaTime * 10);
     }
-
+ */
     [PunRPC]
     void OnDirectionChange_LEFT()
     {
@@ -142,7 +142,6 @@ public class PlayerMovement : MonoBehaviour//, IPunObservable
         attackPoint.transform.position = new UnityEngine.Vector2(this.transform.position.x + 1f, this.transform.position.y);
     }  
 
-    */
 
     public void Jump(InputAction.CallbackContext context)
     {
