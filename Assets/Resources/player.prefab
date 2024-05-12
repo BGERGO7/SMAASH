@@ -222,10 +222,7 @@ MonoBehaviour:
     m_Bits: 64
   attackPoint: {fileID: 4201173200840889267}
   animator: {fileID: 497933689935421191}
-  jumpingPower: 10
   joystick: {fileID: 6100916008954871472, guid: 0d230cc8be529a542a08cb878ab14b18, type: 3}
-  extraJumpValue: 2
-  attackNum: 1
   spriteRenderer: {fileID: 5567647222599282870}
 --- !u!114 &141017767031077707
 MonoBehaviour:
