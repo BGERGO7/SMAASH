@@ -1,22 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using UnityEngine.InputSystem;
-using Unity.VisualScripting;
-using System;
 
 public class MeleeAttack : MonoBehaviour
 {
     PhotonView view;
 
     public Animator animator;
-    private float horizontal;
 
     public Transform attackPoint;
-    //public Transform attackPointOpposite;
-
-    //public Transform attackVector;
 
     public float attackRange = 1f;
     public LayerMask enemyLayer;
@@ -34,37 +26,7 @@ public class MeleeAttack : MonoBehaviour
         attackNum = 1;
         view = GetComponent<PhotonView>(); 
 
-        //attackVector = attackPoint;
-
-        //teszt
     }
-
-/*
-    public void Update()
-    {
-        if(view.IsMine)
-        {
-            if (this.enabled == true && horizontal > 0f)
-            {
-                //spriteRenderer.flipX = false;
-                //attackPoint.transform.position = new UnityEngine.Vector2(this.transform.position.x + 1f, this.transform.position.y);
-                
-                //view.RPC("OnDirectionChange_RIGHT", RpcTarget.Others);
-
-                //attackVector = attackPoint;
-            }
-            else if (this.enabled == true && horizontal < 0f)
-            {
-                //spriteRenderer.flipX = true;
-                //attackPoint.transform.position = new UnityEngine.Vector2(this.transform.position.x - 1f, this.transform.position.y);
-                //view.RPC("OnDirectionChange_LEFT", RpcTarget.Others);
-
-                attackVector = attackPointOpposite;
-            }
-        }
-    }
-
-    */
 
     private void Awake()
     {
