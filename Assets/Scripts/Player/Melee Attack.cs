@@ -9,9 +9,10 @@ public class MeleeAttack : MonoBehaviour
     public Animator animator;
 
     public Transform attackPoint;
-
+    public Transform attackPointOpposite;
     public float attackRange = 1f;
     public LayerMask enemyLayer;
+    public SpriteRenderer spriteRenderer;
     
     public int attackDamage = 40;
     public int attackNum;
@@ -58,10 +59,15 @@ public class MeleeAttack : MonoBehaviour
             animator.SetTrigger("Attack1");
 
             //Valtozoba tarolja azt a collidert (masik jatekost), ami a koron belul van
-            Collider2D hitEnemy = Physics2D.OverlapCircle(attackPoint.position, attackRange, enemyLayer);
+            if(spriteRenderer.flipX == true){
+                Collider2D hitEnemyOpposite = Physics2D.OverlapCircle(attackPointOpposite.position, attackRange, enemyLayer);
+                hitEnemyOpposite.GetComponent<TakeDmg>().TakeDamageCaller(damage);
 
-            //TakeDmg script functionjet lehivja
-            hitEnemy.GetComponent<TakeDmg>().TakeDamageCaller(damage);
+            }else if(spriteRenderer.flipX == false){
+                Collider2D hitEnemy = Physics2D.OverlapCircle(attackPoint.position, attackRange, enemyLayer);
+                hitEnemy.GetComponent<TakeDmg>().TakeDamageCaller(damage);
+            }
+
         }
     }
 
@@ -73,6 +79,12 @@ public class MeleeAttack : MonoBehaviour
             return;
         }
 
+        if (attackPointOpposite == null)
+        {
+            return;
+        }
+
         Gizmos.DrawWireSphere(attackPoint.position, attackRange);
+        Gizmos.DrawWireSphere(attackPointOpposite.position, attackRange);
     }
 }

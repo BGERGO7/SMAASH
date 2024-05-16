@@ -11,6 +11,10 @@ public class PlayerMovement : MonoBehaviour
     public Transform groundCheck;
     public LayerMask groundLayer;
     public GameObject attackPoint;
+    public GameObject attackPointOpposite;
+    //public Vector2 attackPointPosition;
+    //public Vector2 attackPointPositionOpposite;
+
     public Animator animator;
     public Joystick joystick;
     public SpriteRenderer spriteRenderer;
@@ -34,9 +38,16 @@ public class PlayerMovement : MonoBehaviour
             horizontalMove();
             flipCharacter();
             checkJumpAnimation();
+            //updateAttackPoints();
         }
     }
 
+/*
+    void updateAttackPoints(){
+        //attackPointPosition = new Vector2(attackPoint.transform.position.x, attackPoint.transform.position.y);
+        //attackPointPositionOpposite = new Vector2(attackPoint.transform.position.x * -1, attackPoint.transform.position.y);
+    }
+*/
     void horizontalMove(){
         
         if(joystick.Horizontal >= .2f)
@@ -61,13 +72,13 @@ public class PlayerMovement : MonoBehaviour
         if (horizontal > 0f)
         {
             spriteRenderer.flipX = false;
-            attackPoint.transform.position = new Vector2(this.transform.position.x + 1f, this.transform.position.y);
+            //attackPoint.transform.position = new Vector2(this.transform.position.x * 1, this.transform.position.y);
             view.RPC("OnDirectionChange_RIGHT", RpcTarget.Others);
         }
         else if (horizontal < 0f)
         {
             spriteRenderer.flipX = true;
-            attackPoint.transform.position = new Vector2(this.transform.position.x - 1f, this.transform.position.y);
+            //attackPoint.transform.position = new Vector2(attackPointPositionOpposite.x, this.transform.position.y);
             view.RPC("OnDirectionChange_LEFT", RpcTarget.Others);
         }
     }
@@ -83,18 +94,17 @@ public class PlayerMovement : MonoBehaviour
             animator.SetBool("isJumping", false);
         }
     }
-
     [PunRPC]
     void OnDirectionChange_LEFT()
     {
         spriteRenderer.flipX = true;
-        attackPoint.transform.position = new Vector2(this.transform.position.x - 1f, this.transform.position.y);
+        //attackPoint.transform.position = new Vector2(this.transform.position.x - 1f, this.transform.position.y);
     }
     [PunRPC]
     void OnDirectionChange_RIGHT()
     {
         spriteRenderer.flipX = false;
-        attackPoint.transform.position = new Vector2(this.transform.position.x + 1f, this.transform.position.y);
+        //attackPoint.transform.position = new Vector2(this.transform.position.x + 1f, this.transform.position.y);
     }  
 
     public void Jump(InputAction.CallbackContext context)

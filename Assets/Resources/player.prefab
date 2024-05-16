@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 4201173200840889267}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.55, y: 0.048, z: 0}
+  m_LocalPosition: {x: 0.6, y: 0.048, z: 0}
   m_LocalScale: {x: 0.3449066, y: 0.35970396, z: 0.79314727}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -197,6 +197,7 @@ Transform:
   m_LocalScale: {x: 2.8993356, y: 2.7800639, z: 1.2608}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1199901176270294408}
   - {fileID: 8434891907969748161}
   - {fileID: 5259310616585269886}
   - {fileID: 3735998398671886529}
@@ -221,6 +222,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   attackPoint: {fileID: 4201173200840889267}
+  attackPointOpposite: {fileID: 0}
   animator: {fileID: 497933689935421191}
   joystick: {fileID: 6100916008954871472, guid: 0d230cc8be529a542a08cb878ab14b18, type: 3}
   spriteRenderer: {fileID: 5567647222599282870}
@@ -257,10 +259,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 497933689935421191}
   attackPoint: {fileID: 3735998398671886529}
+  attackPointOpposite: {fileID: 1199901176270294408}
   attackRange: 1.04
   enemyLayer:
     serializedVersion: 2
     m_Bits: 128
+  spriteRenderer: {fileID: 5567647222599282870}
   attackDamage: 40
   attackNum: 0
 --- !u!212 &5567647222599282870
@@ -714,6 +718,37 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -0.37, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2750386067445821512}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6219068632712976481
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1199901176270294408}
+  m_Layer: 3
+  m_Name: AttackPointOpposite
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1199901176270294408
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6219068632712976481}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.6, y: 0.048, z: 0}
+  m_LocalScale: {x: 0.3449066, y: 0.35970396, z: 0.79314727}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2750386067445821512}
