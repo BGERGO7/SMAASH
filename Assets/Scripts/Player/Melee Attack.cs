@@ -1,12 +1,16 @@
 using UnityEngine;
 using Photon.Pun;
 using UnityEngine.InputSystem;
+using System.Collections;
 
 public class MeleeAttack : MonoBehaviour
 {
     PhotonView view;
 
     public Animator animator;
+
+    //public Animator attack_anim;
+    public GameObject attackBtn;
 
     public Transform attackPoint;
     public Transform attackPointOpposite;
@@ -21,6 +25,7 @@ public class MeleeAttack : MonoBehaviour
     private InputActionMap player;
 
     int damage = 20;
+    bool canAttack = true;
 
     public void Start()
     {
@@ -54,7 +59,7 @@ public class MeleeAttack : MonoBehaviour
     [PunRPC]
     public void Attack(InputAction.CallbackContext context)
     {
-        if(this.enabled == true && context.performed && view.IsMine)
+        if(this.enabled == true && context.performed && view.IsMine && canAttack == true)
         {
             animator.SetTrigger("Attack1");
 
@@ -70,6 +75,7 @@ public class MeleeAttack : MonoBehaviour
 
         }
     }
+
 
     //Lerajzolja a kort a jobb lathatosagert az editorban
     void OnDrawGizmosSelected()
