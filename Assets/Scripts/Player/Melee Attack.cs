@@ -61,10 +61,9 @@ public class MeleeAttack : MonoBehaviour
     {
         if(this.enabled == true && context.performed && view.IsMine && canAttack == true)
         {
-            animator.SetTrigger("Attack1");
 
             StartCoroutine(AttackCooldownStart2());
-
+            animator.SetTrigger("Attack1");
             //Valtozoba tarolja azt a collidert (masik jatekost), ami a koron belul van
             if(spriteRenderer.flipX == true){
                 Collider2D hitEnemyOpposite = Physics2D.OverlapCircle(attackPointOpposite.position, attackRange, enemyLayer);
@@ -81,8 +80,7 @@ public class MeleeAttack : MonoBehaviour
 
     IEnumerator AttackCooldownStart2(){
         canAttack = false;
-        yield return new WaitForSeconds(1);
-        Debug.Log("1 sec 2");
+        yield return new WaitForSeconds(1.1f);
         canAttack = true;
     }
 
