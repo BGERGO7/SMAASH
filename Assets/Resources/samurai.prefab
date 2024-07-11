@@ -259,7 +259,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 497933689935421191}
-  attackBtn: {fileID: 0}
   attackPoint: {fileID: 3735998398671886529}
   attackPointOpposite: {fileID: 1199901176270294408}
   attackRange: 1.04
@@ -269,7 +268,6 @@ MonoBehaviour:
   spriteRenderer: {fileID: 5567647222599282870}
   attackDamage: 40
   attackNum: 0
-  canAttack: 1
 --- !u!212 &5567647222599282870
 SpriteRenderer:
   m_ObjectHideFlags: 0
