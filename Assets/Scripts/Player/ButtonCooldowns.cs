@@ -37,7 +37,6 @@ public class ButtonCooldowns : MonoBehaviour
        attack_anim.SetTrigger("AttackCooldown");
        attack_btn.interactable = false;
        yield return new WaitForSecondsRealtime(1);
-       Debug.Log("1 sec");
        attack_btn.interactable = true;
     }
 
