@@ -10,6 +10,10 @@ public class PlayerMovement : MonoBehaviour
     public Rigidbody2D rb;
     public Transform groundCheck;
     public LayerMask groundLayer;
+    public GameObject attackPoint;
+    public GameObject attackPointOpposite;
+    //public Vector2 attackPointPosition;
+    //public Vector2 attackPointPositionOpposite;
 
     public Animator animator;
     public Joystick joystick;
@@ -20,19 +24,17 @@ public class PlayerMovement : MonoBehaviour
     private float jumpingPower = 10f;
     private int extraJumps;
     private int extraJumpValue = 2;
-    bool isDead;
 
     void Start()
     {
         extraJumps = extraJumpValue;
         joystick = GameObject.Find("Floating Joystick").GetComponent<Joystick>();
         view = GetComponent<PhotonView>();
-        isDead = false;
     }
 
     void FixedUpdate()
     {
-        if(view.IsMine && isDead == false){
+        if(view.IsMine){
             horizontalMove();
             flipCharacter();
             checkJumpAnimation();
@@ -40,6 +42,12 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+/*
+    void updateAttackPoints(){
+        //attackPointPosition = new Vector2(attackPoint.transform.position.x, attackPoint.transform.position.y);
+        //attackPointPositionOpposite = new Vector2(attackPoint.transform.position.x * -1, attackPoint.transform.position.y);
+    }
+*/
     void horizontalMove(){
         
         if(joystick.Horizontal >= .2f)
@@ -64,11 +72,13 @@ public class PlayerMovement : MonoBehaviour
         if (horizontal > 0f)
         {
             spriteRenderer.flipX = false;
+            //attackPoint.transform.position = new Vector2(this.transform.position.x * 1, this.transform.position.y);
             view.RPC("OnDirectionChange_RIGHT", RpcTarget.Others);
         }
         else if (horizontal < 0f)
         {
             spriteRenderer.flipX = true;
+            //attackPoint.transform.position = new Vector2(attackPointPositionOpposite.x, this.transform.position.y);
             view.RPC("OnDirectionChange_LEFT", RpcTarget.Others);
         }
     }
@@ -88,11 +98,13 @@ public class PlayerMovement : MonoBehaviour
     void OnDirectionChange_LEFT()
     {
         spriteRenderer.flipX = true;
+        //attackPoint.transform.position = new Vector2(this.transform.position.x - 1f, this.transform.position.y);
     }
     [PunRPC]
     void OnDirectionChange_RIGHT()
     {
         spriteRenderer.flipX = false;
+        //attackPoint.transform.position = new Vector2(this.transform.position.x + 1f, this.transform.position.y);
     }  
 
     public void Jump(InputAction.CallbackContext context)
@@ -114,12 +126,6 @@ public class PlayerMovement : MonoBehaviour
                 rb.velocity = Vector2.up * jumpingPower;
             }
         }
-    }
-
-    public void Die(){
-        isDead = true;
-        this.enabled = false;
-        animator.SetBool("isDead", true);
     }
 
     private bool IsGrounded()
