@@ -3232,6 +3232,7 @@ GameObject:
   - component: {fileID: 1339645637}
   - component: {fileID: 1339645640}
   - component: {fileID: 1339645641}
+  - component: {fileID: 1339645642}
   m_Layer: 5
   m_Name: Jump
   m_TagString: Untagged
@@ -3291,7 +3292,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 91a43b465d126432eb58b21d9a56576c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b40eb16cbb2204b5c9005807d8015e28, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3316,7 +3317,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1339645635}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
@@ -3328,7 +3329,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 3
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -3363,7 +3364,7 @@ Animator:
   m_GameObject: {fileID: 1339645635}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 77616506f54724ea3998ca97b5a65bb3, type: 2}
+  m_Controller: {fileID: 9100000, guid: 6a7eca3dbcde4497eb435dab066e4f2f, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -3374,6 +3375,22 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1339645642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1339645635}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39300541983b445778fd6d607e5a20a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attack_anim: {fileID: 1995466243}
+  attack_btn: {fileID: 1995466242}
+  jump_anim: {fileID: 1339645641}
+  jump_btn: {fileID: 1339645640}
 --- !u!1 &1995466237
 GameObject:
   m_ObjectHideFlags: 0
@@ -3448,7 +3465,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 833ebbfef110e45f8954d630504f37f6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b40eb16cbb2204b5c9005807d8015e28, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3540,11 +3557,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1995466237}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c227656c648614a08a56cb16032ca003, type: 3}
+  m_Script: {fileID: 11500000, guid: 39300541983b445778fd6d607e5a20a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   attack_anim: {fileID: 1995466243}
   attack_btn: {fileID: 1995466242}
+  jump_anim: {fileID: 1339645641}
+  jump_btn: {fileID: 1339645640}
 --- !u!224 &1645564145609397701 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8996901446478922226, guid: 9010eeb8a0a7443b0b9dd13605457218, type: 3}
