@@ -246,6 +246,7 @@ GameObject:
   m_Component:
   - component: {fileID: 491350502}
   - component: {fileID: 491350503}
+  - component: {fileID: 491350504}
   m_Layer: 0
   m_Name: slime_forest_ex_bg
   m_TagString: Untagged
@@ -320,6 +321,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &491350504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 491350501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf8263378a0be944eb0b853b214caef2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Parallax_factor: 0.05
+  Camera: {fileID: 0}
 --- !u!1 &637103254
 GameObject:
   m_ObjectHideFlags: 0
@@ -2541,7 +2556,7 @@ CompositeCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.12}
+  m_Offset: {x: 0, y: 0}
   m_GeometryType: 0
   m_GenerationType: 0
   m_EdgeRadius: 0
@@ -2574,18 +2589,18 @@ CompositeCollider2D:
         Y: -50000000
   m_CompositePaths:
     m_Paths:
-    - - {x: 29.999971, y: -5.12}
-      - {x: 29.999971, y: -2.12}
-      - {x: 8, y: -2.1199706}
-      - {x: 7.9999704, y: -1.12}
-      - {x: 7, y: -1.1199706}
-      - {x: 6.9999704, y: -0.12}
-      - {x: 3, y: -0.1200293}
-      - {x: 2.9999707, y: -1.12}
-      - {x: 2, y: -1.1200293}
-      - {x: 1.9999707, y: -2.12}
-      - {x: -32, y: -2.1200292}
-      - {x: -31.999971, y: -5.12}
+    - - {x: 29.999971, y: -5}
+      - {x: 29.999971, y: -2}
+      - {x: 8, y: -1.9999707}
+      - {x: 7.9999704, y: -1}
+      - {x: 7, y: -0.9999706}
+      - {x: 6.9999704, y: 0}
+      - {x: 3, y: -0.000029300001}
+      - {x: 2.9999707, y: -1}
+      - {x: 2, y: -1.0000293}
+      - {x: 1.9999707, y: -2}
+      - {x: -32, y: -2.0000293}
+      - {x: -31.999971, y: -5}
   m_VertexDistance: 0.0005
   m_OffsetDistance: 0.00005
   m_UseDelaunayMesh: 0
@@ -2982,6 +2997,7 @@ GameObject:
   m_Component:
   - component: {fileID: 998965630}
   - component: {fileID: 998965631}
+  - component: {fileID: 998965632}
   m_Layer: 0
   m_Name: slime_forest_ex_fg
   m_TagString: Untagged
@@ -3056,6 +3072,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &998965632
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 998965629}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf8263378a0be944eb0b853b214caef2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Parallax_factor: 0.1
+  Camera: {fileID: 0}
 --- !u!1 &1107115795
 GameObject:
   m_ObjectHideFlags: 0
@@ -3066,6 +3096,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1107115796}
   - component: {fileID: 1107115797}
+  - component: {fileID: 1107115798}
   m_Layer: 0
   m_Name: slime_forest_ex_mg
   m_TagString: Untagged
@@ -3140,6 +3171,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1107115798
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1107115795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf8263378a0be944eb0b853b214caef2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Parallax_factor: 0.06
+  Camera: {fileID: 0}
 --- !u!1 &1290760553
 GameObject:
   m_ObjectHideFlags: 0
