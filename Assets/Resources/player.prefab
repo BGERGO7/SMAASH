@@ -75,7 +75,7 @@ GameObject:
   - component: {fileID: 5700997324441665112}
   m_Layer: 3
   m_Name: cam
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -129,8 +129,8 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
-  orthographic: 0
-  orthographic size: 5
+  orthographic: 1
+  orthographic size: 6.21
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -179,7 +179,7 @@ GameObject:
   - component: {fileID: -9156093716600337247}
   m_Layer: 3
   m_Name: player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -658,8 +658,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62b70c6fa3e69304889d60f467233064, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  yOffset: 1.5
-  zOffset: -9
+  yOffset: 3.8
+  zOffset: 0
 --- !u!114 &-9156093716600337247
 MonoBehaviour:
   m_ObjectHideFlags: 0

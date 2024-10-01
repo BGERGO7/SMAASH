@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1550625282838295639}
   m_Layer: 7
   m_Name: cam
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -67,8 +67,8 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
-  orthographic: 0
-  orthographic size: 5
+  orthographic: 1
+  orthographic size: 6.21
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -116,7 +116,7 @@ GameObject:
   - component: {fileID: 9175846915309582073}
   m_Layer: 7
   m_Name: slime
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -337,9 +337,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.025556158}
+  m_Offset: {x: 0, y: -0.032371353}
   serializedVersion: 2
-  m_Radius: 0.098327614
+  m_Radius: 0.10514281
 --- !u!114 &6847770955165184735
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -591,8 +591,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62b70c6fa3e69304889d60f467233064, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  yOffset: 1.5
-  zOffset: -9
+  yOffset: 3.8
+  zOffset: -2
 --- !u!1 &4114129097919910443
 GameObject:
   m_ObjectHideFlags: 0

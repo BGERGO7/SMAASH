@@ -19,11 +19,7 @@ public class parallax_effect : MonoBehaviour
             PhotonView view = p.GetComponent<PhotonView>();
             if (view != null && view.IsMine)
             {
-            //   while (p.GetComponent<Camera>() == null)
-            //    {
-            //        Debug.Log("Fetching player cameras");
-            //    }
-                return p.GetComponent<Camera>();
+                return p.GetComponentInChildren<Camera>();
             }
         }
         return null;
@@ -39,6 +35,11 @@ public class parallax_effect : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //unity is tweaking
+        if (Camera == null)
+        {
+            return;
+        }
         Pos = Camera.transform.position;
         Distance = Pos.x * Parallax_factor;
 
