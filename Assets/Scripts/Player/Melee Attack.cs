@@ -23,6 +23,7 @@ public class MeleeAttack : MonoBehaviour
 
     private InputActionAsset inputAsset;
     private InputActionMap player;
+    
 
     int damage = 20;
     public bool canAttack = true;
@@ -68,11 +69,19 @@ public class MeleeAttack : MonoBehaviour
             //Valtozoba tarolja azt a collidert (masik jatekost), ami a koron belul van
             if(spriteRenderer.flipX == true){
                 Collider2D hitEnemyOpposite = Physics2D.OverlapCircle(attackPointOpposite.position, attackRange, enemyLayer);
-                hitEnemyOpposite.GetComponent<TakeDmg>().TakeDamageCaller(damage);
+                PhotonView targetPhotonView = hitEnemyOpposite.GetComponent<PhotonView>();
+                if(targetPhotonView != null){
+                    hitEnemyOpposite.GetComponent<PlayerHealth>().TakeDamageCaller(damage);
+                }
+                //hitEnemyOpposite.GetComponent<TakeDmg>().TakeDamageCaller(damage);
 
             }else if(spriteRenderer.flipX == false){
                 Collider2D hitEnemy = Physics2D.OverlapCircle(attackPoint.position, attackRange, enemyLayer);
-                hitEnemy.GetComponent<TakeDmg>().TakeDamageCaller(damage);
+                PhotonView targetPhotonView = hitEnemy.GetComponent<PhotonView>();
+                if(targetPhotonView != null){
+                    hitEnemy.GetComponent<PlayerHealth>().TakeDamageCaller(damage);
+                }
+                //hitEnemy.GetComponent<TakeDmg>().TakeDamageCaller(damage);
             }
         }
     }
@@ -82,7 +91,6 @@ public class MeleeAttack : MonoBehaviour
     IEnumerator AttackCooldownStart2(){
         canAttack = false;
         yield return new WaitForSeconds(1);
-        Debug.Log("1 sec 2");
         canAttack = true;
     }
 
