@@ -219,9 +219,8 @@ MonoBehaviour:
   animator: {fileID: 497933689935421191}
   playerMovement: {fileID: 8095103847225091386}
   meleeAttack: {fileID: 0}
-  jumpCooldown: {fileID: 0}
-  attackCooldown: {fileID: 0}
   buttonCooldowns: {fileID: 0}
+  isDead: 0
   healthBar: {fileID: 0}
   maxHealth: 100
 --- !u!114 &8095103847225091386
@@ -271,6 +270,7 @@ MonoBehaviour:
   attackDamage: 40
   attackNum: 0
   canAttack: 1
+  isDead: 0
 --- !u!212 &5567647222599282870
 SpriteRenderer:
   m_ObjectHideFlags: 0

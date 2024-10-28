@@ -57,11 +57,16 @@ public class MeleeAttack : MonoBehaviour
         player.Disable();
     }
 
+    public void Dead(){
+        player.FindAction("Attack").started -= Attack;
+        player.Disable();
+    }
+
 
     [PunRPC]
     public void Attack(InputAction.CallbackContext context)
     {
-        if(this.enabled == true && context.performed && view.IsMine && canAttack == true && isDead == false)
+        if(this.enabled == true && context.performed && view.IsMine && canAttack == true)
         {
             animator.SetTrigger("Attack1");
 
