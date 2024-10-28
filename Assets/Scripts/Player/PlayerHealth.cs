@@ -7,6 +7,14 @@ public class PlayerHealth : MonoBehaviourPunCallbacks
 {
     PhotonView photonView;
 
+    public Animator animator;
+
+    public PlayerMovement playerMovement;
+    public MeleeAttack meleeAttack;
+    public JumpCooldown jumpCooldown;
+    public AttackCooldown attackCooldown;
+    public ButtonCooldowns buttonCooldowns;
+
     public HealthBar healthBar;
     public int maxHealth = 100;
     private int currentHealth;
@@ -38,7 +46,13 @@ public class PlayerHealth : MonoBehaviourPunCallbacks
         if (!photonView.IsMine) return;
 
         currentHealth -= damage;
-        if (currentHealth < 0) currentHealth = 0;
+        Debug.Log(currentHealth);
+        if (currentHealth <= 0)
+        {
+            currentHealth = 0;
+            healthBar.SetHealth(currentHealth);
+            Die();
+        }
 
         // Frissítjük a saját healthbarunkat
         healthBar.SetHealth(currentHealth);
@@ -47,12 +61,32 @@ public class PlayerHealth : MonoBehaviourPunCallbacks
         photonView.RPC("UpdateHealth", RpcTarget.Others, currentHealth);
     }
 
+    //Halal animacio
+    void Die()
+    {
+        animator.SetBool("isDead", true);
+        photonView.RPC("UpdateHealth", RpcTarget.Others, currentHealth);
+        playerMovement.isDead = true;
+        meleeAttack.isDead = true;
+        
+        jumpCooldown.enabled = false;
+        buttonCooldowns.enabled = false;
+        attackCooldown.enabled = false;
+    }
+
     // Ezt a funkciót a többiek healthbarjának frissítéséhez használjuk
     [PunRPC]
     void UpdateHealth(int updatedHealth)
     {
-        currentHealth = updatedHealth;
-        healthBar.SetHealth(currentHealth);
+        if (currentHealth <= 0)
+        {
+            currentHealth = 0;
+            healthBar.SetHealth(currentHealth);
+        }else
+        {
+           currentHealth = updatedHealth;
+            healthBar.SetHealth(currentHealth); 
+        }
     }
 
     // Új játékos csatlakozásakor frissítjük a health értékeket

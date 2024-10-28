@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
     PhotonView view;
 
     public Rigidbody2D rb;
+    public bool isDead;
     public Transform groundCheck;
     public LayerMask groundLayer;
     public GameObject attackPoint;
@@ -27,6 +28,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
+        isDead = false;
         extraJumps = extraJumpValue;
         joystick = GameObject.Find("Floating Joystick").GetComponent<Joystick>();
         view = GetComponent<PhotonView>();
@@ -34,7 +36,7 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        if(view.IsMine){
+        if(view.IsMine && isDead == false){
             horizontalMove();
             flipCharacter();
             checkJumpAnimation();
@@ -109,7 +111,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void Jump(InputAction.CallbackContext context)
     {
-        if(view.IsMine)
+        if(view.IsMine && isDead == false)
         {
             if(IsGrounded())
             {
