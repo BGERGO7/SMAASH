@@ -65,7 +65,15 @@ public class PlayerHealth : MonoBehaviourPunCallbacks
         photonView.RPC("UpdateHealth", RpcTarget.Others, currentHealth);
         this.GetComponent<MeleeAttack>().enabled = false;
         this.GetComponent<PlayerMovement>().enabled =  false;
+        this.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Player"), true);
+        photonView.RPC("IgnoreCollision", RpcTarget.Others);
         isDead = true;
+    }
+
+    [PunRPC]
+    void IgnoreCollision(){
+        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Player"), true);
     }
 
     // Ezt a funkciót a többiek healthbarjának frissítéséhez használjuk

@@ -45,6 +45,7 @@ MonoBehaviour:
   - Attack
   - UpdatePlayerCount
   - UpdateHealth
+  - IgnoreCollision
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
