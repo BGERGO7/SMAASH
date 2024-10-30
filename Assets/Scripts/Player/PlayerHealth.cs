@@ -21,13 +21,14 @@ public class PlayerHealth : MonoBehaviourPunCallbacks
     // Start is called before the first frame update
     void Start()
     {
-
         photonView = GetComponent<PhotonView>();
+
         if(photonView.Owner.ActorNumber == 1){
             healthBar = GameObject.Find("HealthBar1").GetComponent<HealthBar>();
         }else if(photonView.Owner.ActorNumber == 2){
             healthBar = GameObject.Find("HealthBar2").GetComponent<HealthBar>();
         }
+
         currentHealth = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
         healthBar.SetHealth(currentHealth);    
@@ -45,6 +46,7 @@ public class PlayerHealth : MonoBehaviourPunCallbacks
         if (!photonView.IsMine || isDead == true) return;
 
         currentHealth -= damage;
+
         if (currentHealth <= 0)
         {
             Die();
@@ -60,15 +62,14 @@ public class PlayerHealth : MonoBehaviourPunCallbacks
     public void Die()
     {
         currentHealth = 0;
-        healthBar.SetHealth(currentHealth);
+        isDead = true;
         animator.SetBool("isDead", true);
-        photonView.RPC("UpdateHealth", RpcTarget.Others, currentHealth);
+
         this.GetComponent<MeleeAttack>().enabled = false;
         this.GetComponent<PlayerMovement>().enabled =  false;
         this.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
         Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Player"), true);
         photonView.RPC("IgnoreCollision", RpcTarget.Others);
-        isDead = true;
     }
 
     [PunRPC]
@@ -98,11 +99,5 @@ public class PlayerHealth : MonoBehaviourPunCallbacks
         {
             photonView.RPC("UpdateHealth", newPlayer, currentHealth);
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
