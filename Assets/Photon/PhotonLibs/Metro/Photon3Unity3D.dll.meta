@@ -12,12 +12,12 @@ PluginImporter:
   validateReferences: 1
   platformData:
   - first:
-      '': Any
+      : Any
     second:
       enabled: 1
       settings: {}
   - first:
-      '': WP8
+      : WP8
     second:
       enabled: 1
       settings:
@@ -26,6 +26,12 @@ PluginImporter:
         PlaceholderPath: Assets/Photon/PhotonLibs/Photon3Unity3D.dll
         SDK: AnySDK
         ScriptingBackend: DotNet
+  - first:
+      Editor: Editor
+    second:
+      enabled: 0
+      settings:
+        DefaultValueInitialized: true
   - first:
       Windows Store Apps: WindowsStoreApps
     second:
